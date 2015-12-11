@@ -2,14 +2,18 @@ elem-simple
 ==============
 Simplest version of elem
 
-* JSX first
-* function tags
+* JSX
+* functions as tag
 * props
-* props.children
-* props.repaint
-* props.myself
+  * props.children
+  * props.redraw
+  * props.myself
+  * props.context
 * inline styling
-* class array
-* class object
-* rendertostring
-* ref functions
+* classes
+  * class as string
+  * class as array
+  * class as object
+* universal render
+* ref callback
+* predicate

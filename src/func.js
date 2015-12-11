@@ -14,5 +14,5 @@ export function renderFunction(el, ctx, document) {
       parentNode.replaceChild(newNode, oldNode);
     },
   };
-  return el.render({ ...el.props, children: el.children, redraw: ctx.redraw, myself });
+  return el.render({ ...el.props, children: el.children, redraw: ctx.redraw, myself, context: ctx.context });
 }

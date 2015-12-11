@@ -10,7 +10,7 @@ function clearNode(node) {
 
 export function renderToString(func) {
   if (isFunction(func)) {
-    return elementToString(func({ children: [], myself: {}, redraw: {} }));
+    return elementToString(func({ children: [], myself: {}, redraw: {}, context: {} }));
   }
   return elementToString(func);
 }
@@ -19,9 +19,9 @@ export function render(func, node, append = false) {
   if (!isFunction(func)) {
     return render(() => func, node);
   }
-  const ctx = {};
+  const ctx = { context: {} };
   ctx.redraw = () => {
-    const tree = func({ children: [], myself: {}, redraw: ctx.redraw });
+    const tree = func({ children: [], myself: {}, redraw: ctx.redraw, context: ctx.context });
     const domNode = renderToDOM(window.document, tree, ctx);
     if (!append) {
       clearNode(node);

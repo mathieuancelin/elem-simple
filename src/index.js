@@ -59,6 +59,8 @@ export function createElement(name, props, ...children) {
   };
 }
 
+export const jsx = createElement;
+
 export function predicate(p, what) {
   if (isFunction(p)) {
     return !!p() ? what : undefined;

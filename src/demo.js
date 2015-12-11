@@ -2,13 +2,13 @@
 
 import { render, createElement, renderToString } from './index';
 
-const React = { render, createElement, renderToString };
+const React = { createElement };
 
 const Time = (props) => {
   return (
     <div>
       <span ref={(n) => console.log(n)}>Time {props.separator} {Date.now()}</span>
-      <button type="button" onClick={() => props.myself.redraw(<Time />)}>update</button>
+      <button type="button" onClick={() => props.myself.redraw(<Time separator={props.separator} />)}>update</button>
       <button type="button" onClick={() => props.redraw()}>redraw</button>
     </div>
   );
@@ -38,6 +38,6 @@ const App = () => {
 };
 
 export function init(node) {
-  React.render(App, node);
-  console.log(React.renderToString(App));
+  render(App, node);
+  console.log(renderToString(App));
 }

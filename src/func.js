@@ -1,4 +1,4 @@
-import { renderToDOM } from './renderers';
+import { renderToDOM } from './domrenderer';
 
 export function renderFunction(el, ctx, document) {
   const selector = '[data-funccallid="' + el.nodeId + '"]';

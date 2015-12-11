@@ -1,4 +1,4 @@
-import { contains } from './utils';
+import { includes } from './utils';
 
 const svgElements = ['altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate',
   'animateColor', 'animateMotion', 'animateTransform',
@@ -18,7 +18,7 @@ const svgElements = ['altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate',
 const svgNS = 'http://www.w3.org/2000/svg';
 
 export function namespace(of) {
-  if (contains(svgElements, of.toLowerCase())) {
+  if (includes(svgElements, of.toLowerCase())) {
     return svgNS;
   }
   return undefined;

@@ -53,8 +53,22 @@ export const isArray = Array.isArray;
 
 export const isUndefined = (χ) => χ === undefined;
 
-export const contains = (array, what) => array.indexOf(what) > -1;
+export const includes = (array, what) => array.indexOf(what) > -1;
 
 export const isFunction = (χ) => isObject(χ) && Object.prototype.toString.call(χ) == '[object Function]';
 
 export const isString = (χ) => typeof χ == 'string' || ((!!χ && typeof χ == 'object') && Object.prototype.toString.call(χ) == '[object String]');
+
+export function classToArray(attrs) {
+  if (!attrs) return [];
+  if (isString(attrs)) return [attrs];
+  if (isArray(attrs)) return attrs;
+  const attrsArray = [];
+  for (const key in attrs) {
+    const value = attrs[key];
+    if (value === true) {
+      attrsArray.push(dasherize(key));
+    }
+  }
+  return attrsArray;
+}

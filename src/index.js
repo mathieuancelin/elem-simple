@@ -1,6 +1,7 @@
 import { sid, isFunction, escape, isUndefined } from './utils';
 import { namespace } from './svg';
-import { renderToDOM, elementToString } from './renderers';
+import { renderToDOM } from './domrenderer';
+import { elementToString } from './stringrenderer';
 
 function clearNode(node) {
   while (!isUndefined(node) && !Object.is(node, null) && node.firstChild) {
@@ -37,7 +38,7 @@ export function render(func, node, append = false) {
   };
 }
 
-export function createElement(name, props = {}, ...children) {
+export function createElement(name, props, ...children) {
   const nodeId = sid('node-');
   if (isFunction(name)) {
     return {
@@ -56,4 +57,12 @@ export function createElement(name, props = {}, ...children) {
     children: [].concat.apply([], children),
     namespace: namespace(name),
   };
+}
+
+export function predicate(p, what) {
+  if (isFunction(p)) {
+    return !!p() ? what : undefined;
+  } else {
+    return !!p ? what : undefined;
+  }
 }

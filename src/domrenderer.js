@@ -17,7 +17,7 @@ export function renderToDOM(document, element, ctx) {
           node.value = value;
         } else if (key === 'indeterminate' && element.name === 'input') {
           node.indeterminate = value;
-        } else if (key === 'className' || key === 'class' ) {
+        } else if (key === 'className' || key === 'class') {
           node.setAttribute('class', classToArray(value).join(' '));
         } else if (key === 'style') {
           node.setAttribute('style', serializeStyle(value));

@@ -13,7 +13,7 @@ export function elementToString(element) {
           node.push(`value="${value}"`);
         } else if (key === 'indeterminate' && element.name === 'input') {
           node.push(`indeterminate="${value}"`);
-        } else if (key === 'className' || key === 'class' ) {
+        } else if (key === 'className' || key === 'class') {
           node.push(`class="${classToArray(value).join(' ')}"`);
         } else if (key === 'style') {
           node.push(`style="${serializeStyle(value)}" `);

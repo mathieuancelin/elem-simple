@@ -1,0 +1,43 @@
+/* eslint react/no-multi-comp: 0 react/prop-types: 0 */
+
+import { render, createElement, renderToString } from './index';
+
+const React = { render, createElement, renderToString };
+
+const Time = (props) => {
+  return (
+    <div>
+      <span ref={(n) => console.log(n)}>Time {props.separator} {Date.now()}</span>
+      <button type="button" onClick={() => props.myself.redraw(<Time />)}>update</button>
+      <button type="button" onClick={() => props.redraw()}>redraw</button>
+    </div>
+  );
+};
+
+const Dummy = (props) => {
+  return (
+    <div>
+      <span>Yo {props.separator} bitch</span>
+      <button type="button" onClick={() => props.myself.redraw(<Time separator=":" />)}>time</button>
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      <div>
+        <div id="hello3" className={{ button: false, buttonDanger: true }} style={{ backgroundColor: 'red', color: 'yellow' }}>Hello World!</div>
+      </div>
+      <div className={['button', 'button-danger']} id="hello">Hello World!</div>
+      <div className="yo" id="hello2">Hello World!</div>
+      <br />
+      <Dummy separator="/" />
+    </div>
+  );
+};
+
+export function init(node) {
+  React.render(App, node);
+  console.log(React.renderToString(App));
+}

@@ -1,7 +1,8 @@
-import { dasherize, isFunction, startsWith, classToArray } from './utils';
+import { dasherize, isFunction, startsWith } from './utils';
 import { attachEvents } from './eventhandlers';
 import { renderFunction } from './func';
 import { serializeStyle } from './style';
+import { serializeClass } from './class';
 
 export function renderToDOM(document, element, ctx) {
   if (element.__type === 'simple-node') {
@@ -10,21 +11,21 @@ export function renderToDOM(document, element, ctx) {
       document.createElement(element.name);
     for (const key in element.props) {
       const value = element.props[key];
-      if (!startsWith(key, 'on') && key !== 'ref' && !isFunction(value)) {
-        if (key === 'innerHTML') {
-          node.innerHTML = value;
-        } else if (key === 'value' && element.name === 'input') {
+      if (key !== 'ref' && key !== 'attributes' && !startsWith(key, 'on') && !isFunction(value)) {
+        if (key === 'value' && element.name === 'input') {
           node.value = value;
         } else if (key === 'indeterminate' && element.name === 'input') {
           node.indeterminate = value;
         } else if (key === 'className' || key === 'class') {
-          node.setAttribute('class', classToArray(value).join(' '));
+          node.setAttribute('class', serializeClass(value).join(' '));
         } else if (key === 'style') {
           node.setAttribute('style', serializeStyle(value));
-        } else if (key === 'ref') {
-          // nop
         } else {
           node.setAttribute(dasherize(key), value);
+        }
+      } else if (key === 'attributes') {
+        for (const attr in value) {
+          node[attr] = value[attr];
         }
       }
     }

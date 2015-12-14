@@ -5,9 +5,11 @@ export function renderFunction(el, ctx, document) {
   const getNode = () => document.querySelector(selector);
   const myself = {
     id: el.nodeId,
-    selector: selector,
-    getNode: getNode,
-    redraw(element) {
+    selector, getNode,
+    redraw(props) {
+      return renderFunction({ ...el, props: props || el.props }, ctx, document);
+    },
+    replaceWith(element) {
       const oldNode = getNode();
       const parentNode = oldNode.parentNode;
       const newNode = renderToDOM(document, element, ctx);

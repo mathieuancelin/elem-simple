@@ -12,6 +12,13 @@ or import the script from npmcdn with
 <script src="https://npmcdn.com/elem-simple/dist/elem.js"></script>
 ```
 
+### TODO
+
+* optimized loop (only once)
+* write tests
+* add documentation for list of features
+* add documentation for tree redraw and subtree redraw
+
 ### Basics
 
 ```javascript
@@ -32,6 +39,8 @@ const interval = setInterval(app.redraw, 1000);
 // after 5 seconds, cleanup everything
 setTimeout(() => {
   clearInterval(interval);
+  const actualDOMNodeOfApp = app.getNode();
+  ...
   app.cleanup(); // remove app nodes from the DOM
 }, 5000);
 ```

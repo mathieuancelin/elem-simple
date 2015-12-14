@@ -16,7 +16,7 @@ var plugins = [
 if (process.env.NODE_ENV === 'dev') {
   plugins.push(new webpack.HotModuleReplacementPlugin());
   plugins.push(new webpack.NoErrorsPlugin());
-  entries.demo = './src/demo.js';
+  entries.demo = './demo/demo.js';
 } else {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
     compressor: {

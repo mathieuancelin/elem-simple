@@ -1,28 +1,27 @@
-import { dasherize, isFunction, startsWith, classToArray } from './utils';
+import { dasherize, isFunction, startsWith } from './utils';
 import { serializeStyle } from './style';
+import { serializeClass } from './class';
 
 export function elementToString(element) {
   if (element.__type === 'simple-node') {
-    const node = [`<${element.name}`];
+    const node = [];
+    const children = [];
     for (const key in element.props) {
       const value = element.props[key];
-      if (!startsWith(key, 'on') && key !== 'ref' && !isFunction(value)) {
-        if (key === 'innerHTML') {
-          node.innerHTML = value;
-        } else if (key === 'value' && element.name === 'input') {
+      if (key !== 'ref' && key !== 'attributes' && !startsWith(key, 'on') && !isFunction(value)) {
+        if (key === 'value' && element.name === 'input') {
           node.push(`value="${value}"`);
         } else if (key === 'indeterminate' && element.name === 'input') {
           node.push(`indeterminate="${value}"`);
         } else if (key === 'className' || key === 'class') {
-          node.push(`class="${classToArray(value).join(' ')}"`);
+          node.push(`class="${serializeClass(value).join(' ')}"`);
         } else if (key === 'style') {
-          node.push(`style="${serializeStyle(value)}" `);
+          node.push(`style="${serializeStyle(value)}"`);
         } else {
           node.push(`${dasherize(key)}="${value}"`);
         }
       }
     }
-    node.push('>');
     for (const childIdx in element.children) {
       let child = element.children[childIdx];
       if (child && isFunction(child)) {
@@ -35,11 +34,10 @@ export function elementToString(element) {
         } else {
           childNode = String(child);
         }
-        node.push(childNode);
+        children.push(childNode);
       }
     }
-    node.push(`</${element.name}>`);
-    return node.join(' ');
+    return `<${element.name}${node.length > 0 ? ' ' : ''}${node.join(' ')}>${children.join('')}</${element.name}>`;
   } else {
     const funcElement = element.render({ ...element.props, children: element.children, redraw: () => ({}) });
     return elementToString(funcElement);

@@ -1,6 +1,6 @@
 /* eslint react/no-multi-comp: 0 react/prop-types: 0 */
 
-import { render, createElement, renderToString } from './index';
+import { render, createElement, renderToString } from '../src/index';
 
 const React = { createElement };
 

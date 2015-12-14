@@ -4,7 +4,7 @@ import { renderToDOM } from './domrenderer';
 import { elementToString } from './stringrenderer';
 
 function clearNode(node) {
-  while (!isUndefined(node) && !Object.is(node, null) && node.firstChild) {
+  while (!isUndefined(node) && node !== null && node.firstChild) {
     node.removeChild(node.firstChild);
   }
 }
@@ -17,6 +17,7 @@ export function renderToString(func) {
 }
 
 export function render(func, node, append = false) {
+  const nodeId = sid('root-');
   if (!isFunction(func)) {
     return render(() => func, node);
   }
@@ -27,14 +28,14 @@ export function render(func, node, append = false) {
     if (!append) {
       clearNode(node);
     }
+    domNode.setAttribute('data-rootid', nodeId);
     node.appendChild(domNode);
   };
   ctx.redraw();
   return {
+    getNode: () => document.querySelector(`[data-rootid="${nodeId}"]`),
     redraw: ctx.redraw,
-    cleanup: () => {
-      clearNode(node);
-    },
+    cleanup: () => clearNode(node),
   };
 }
 
@@ -42,20 +43,14 @@ export function createElement(name, props, ...children) {
   const nodeId = sid('node-');
   if (isFunction(name)) {
     return {
-      __type: 'function-node',
-      nodeId,
-      render: name,
-      props: props || {},
+      __type: 'function-node', nodeId, render: name, props: props || {},
       children: [].concat.apply([], children),
     };
   }
   return {
     __type: 'simple-node',
-    nodeId,
-    name: escape(name.toLowerCase()),
-    props: props || {},
-    children: [].concat.apply([], children),
-    namespace: namespace(name),
+    nodeId, name: escape(name.toLowerCase()), props: props || {},
+    children: [].concat.apply([], children), namespace: namespace(name),
   };
 }
 

@@ -21,6 +21,16 @@ or import the script from npmcdn with
 
 ### Basics
 
+the `Elem` API is pretty simple
+
+* `Elem.render(func, node)`: render the tree returned by the `function` into the `node`
+* `Elem.renderToString(func)`: return an HTML string representation of the tree returned by the `function`
+* `Elem.createElement(name, props, ...children)`: create a DOM node representation. Used by JSX expressions.
+* `Elem.jsx(name, props, ...children)`: like `createElement`
+* `Elem.predicate(predicate, node)`: return `node` if predicate is true
+
+you can use it this way
+
 ```javascript
 import Elem from 'elem-simple';
 

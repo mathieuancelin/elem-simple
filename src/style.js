@@ -15,5 +15,5 @@ export function serializeStyle(style) {
       }
     }
   }
-  return attrsArray.join(' ');
+  return attrsArray.join('');
 }

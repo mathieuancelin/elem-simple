@@ -74,6 +74,85 @@ describe('elem-simple', () => {
     expect(items[2].innerHTML).to.be.equal('Item : Jones');
     app.cleanup();
   });
+  it('should be able to render SVG nodes', () => {
+    const shapes = (
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="200">
+        <rect width="100" height="80" x="0" y="70" fill="green" />
+        <line x1="5" y1="5" x2="250" y2="95" stroke="red" />
+        <circle cx="90" cy="80" r="50" fill="blue" />
+      </svg>
+    );
+    const app = React.render(shapes, document.getElementById('app'));
+    const rect = document.getElementsByTagName('rect')[0];
+    const line = document.getElementsByTagName('line')[0];
+    const circle = document.getElementsByTagName('circle')[0];
+
+    expect(rect.getAttribute('fill')).to.be.equal('green');
+    expect(rect.getAttribute('width')).to.be.equal('100');
+    expect(rect.getAttribute('height')).to.be.equal('80');
+    expect(rect.getAttribute('x')).to.be.equal('0');
+    expect(rect.getAttribute('y')).to.be.equal('70');
+
+    expect(line.getAttribute('x1')).to.be.equal('5');
+    expect(line.getAttribute('x2')).to.be.equal('250');
+    expect(line.getAttribute('y1')).to.be.equal('5');
+    expect(line.getAttribute('y2')).to.be.equal('95');
+    expect(line.getAttribute('stroke')).to.be.equal('red');
+
+    expect(circle.getAttribute('cx')).to.be.equal('90');
+    expect(circle.getAttribute('cy')).to.be.equal('80');
+    expect(circle.getAttribute('r')).to.be.equal('50');
+    expect(circle.getAttribute('fill')).to.be.equal('blue');
+
+    app.cleanup();
+  });
+  it('should handle simple className', () => {
+    const App = (props) => {
+      return (
+        <h1 className="btn">Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.getAttribute('class')).to.be.equal('btn');
+    app.cleanup();
+  });
+  it('should handle array className', () => {
+    const App = (props) => {
+      return (
+        <h1 className={['btn', 'btn-danger']}>Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.getAttribute('class')).to.be.equal('btn btn-danger');
+    app.cleanup();
+  });
+  it('should handle object className', () => {
+    const App = (props) => {
+      return (
+        <h1 className={{ btn: true, btnDanger: false, btnWarning: true }}>Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.getAttribute('class')).to.be.equal('btn btn-warning');
+    app.cleanup();
+  });
+  it('should handle style object', () => {
+    const App = (props) => {
+      return (
+        <h1 style={{ color: 'red', backgroundColor: 'black', border: '1px solid blue' }}>Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.style.color).to.be.equal('red');
+    expect(h1.style.backgroundColor).to.be.equal('black');
+    expect(h1.style.border).to.be.equal('1px solid blue');
+    expect(h1.getAttribute('style')).to.be.equal('color:red;background-color:black;border:1px solid blue;');
+    app.cleanup();
+  });
 });
 
 // DONE : function tag
@@ -83,9 +162,9 @@ describe('elem-simple', () => {
 // TODO : props.children
 // TODO : props.myself
 // TODO : props.context
-// TODO : svg
-// TODO : style
-// TODO : class
+// DONE : svg
+// DONE : style
+// DONE : class + classes + bool classes
 // DONE : Universal
 // DONE : node refs
 // DONE : event handlers

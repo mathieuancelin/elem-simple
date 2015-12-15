@@ -8,7 +8,7 @@ const Time = (props) => {
   return (
     <div>
       <span ref={(n) => console.log(n)}>Time {props.separator} {Date.now()}</span>
-      <button type="button" onClick={() => props.myself.redraw(<Time separator={props.separator} />)}>update</button>
+      <button type="button" onClick={() => props.myself.replaceWith(<Time separator={props.separator} />)}>update</button>
       <button type="button" onClick={() => props.redraw()}>redraw</button>
     </div>
   );
@@ -18,14 +18,16 @@ const Dummy = (props) => {
   return (
     <div>
       <span>Yo {props.separator} bitch</span>
-      <button type="button" onClick={() => props.myself.redraw(<Time separator=":" />)}>time</button>
+      <button type="button" onClick={() => props.myself.replaceWith(<Time separator=":" />)}>time</button>
     </div>
   );
 };
 
+const Wrapper = (props) => <div style={{ border: '1px solid black' }}>{props.children}</div>;
+
 const App = () => {
   return (
-    <div>
+    <Wrapper>
       <div>
         <div id="hello3" className={{ button: false, buttonDanger: true }} style={{ backgroundColor: 'red', color: 'yellow' }}>Hello World!</div>
       </div>
@@ -33,7 +35,7 @@ const App = () => {
       <div className="yo" id="hello2">Hello World!</div>
       <br />
       <Dummy separator="/" />
-    </div>
+    </Wrapper>
   );
 };
 

@@ -153,15 +153,244 @@ describe('elem-simple', () => {
     expect(h1.getAttribute('style')).to.be.equal('color:red;background-color:black;border:1px solid blue;');
     app.cleanup();
   });
+  it('should handle style string', () => {
+    const App = (props) => {
+      return (
+        <h1 style="color:red;background-color:black;border:1px solid blue;">Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.style.color).to.be.equal('red');
+    expect(h1.style.backgroundColor).to.be.equal('black');
+    expect(h1.style.border).to.be.equal('1px solid blue');
+    expect(h1.getAttribute('style')).to.be.equal('color:red;background-color:black;border:1px solid blue;');
+    app.cleanup();
+  });
+  it('should provide a context to its components', () => {
+    const FirstComponent = (props) => {
+      props.context.secondvalue = 'value2';
+      return <div className="firstcomponent">{props.context.value}</div>;
+    };
+    const SecondComponent = (props) => <div className="secondcomponent">{props.context.value} {props.context.secondvalue}</div>;
+    const App = (props) => {
+      props.context.value = 'value1';
+      return (
+        <div>
+          <FirstComponent />
+          <SecondComponent />
+        </div>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const div1 = document.querySelector('.firstcomponent');
+    const div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('value1');
+    expect(div2.innerHTML).to.be.equal('value1 value2');
+    app.cleanup();
+  });
+  it('should provide a way to redraw the whole element tree', () => {
+    let firstValue = 1;
+    let secondValue = 1;
+    const FirstComponent = (props) => <div className="firstcomponent">{firstValue}</div>;
+    const SecondComponent = (props) => <div className="secondcomponent" onClick={(e) => {
+      firstValue = 200;
+      secondValue = 400;
+      props.redraw();
+    }}>{secondValue}</div>;
+    const App = (props) => {
+      return (
+        <div>
+          <FirstComponent />
+          <SecondComponent />
+          <button type="button" onClick={(e) => {
+            firstValue += 1;
+            secondValue += 2;
+            props.redraw();
+          }}>click me</button>
+        </div>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    let div1 = document.querySelector('.firstcomponent');
+    let div2 = document.querySelector('.secondcomponent');
+    const button = document.getElementsByTagName('button')[0];
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('1');
+    button.click();
+    div1 = document.querySelector('.firstcomponent');
+    div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('2');
+    expect(div2.innerHTML).to.be.equal('3');
+    div2.click();
+    div1 = document.querySelector('.firstcomponent');
+    div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('200');
+    expect(div2.innerHTML).to.be.equal('400');
+    app.cleanup();
+  });
+  it('should provide a way to redraw a particular tag', () => {
+    let firstValue = 1;
+    let secondValue = 1;
+    const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
+    const SecondComponent = (props) => {
+      return (
+        <div className="secondcomponent" onClick={(e) => {
+          secondValue = 600;
+          firstValue = 1000;
+          props.myself.redraw({ value: secondValue });
+        }}>{props.value}</div>
+    );
+    };
+    const App = (props) => {
+      return (
+        <div>
+          <FirstComponent value={firstValue} />
+          <SecondComponent value={secondValue} />
+        </div>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const div1 = document.querySelector('.firstcomponent');
+    let div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('1');
+    div2.click();
+    div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('600');
+    app.cleanup();
+  });
+  it('should provide a way to replace a particular tag', () => {
+    let firstValue = 1;
+    let secondValue = 1;
+    const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
+    const SecondComponent = (props) => {
+      return (
+        <div className="secondcomponent" onClick={(e) => {
+          secondValue = 600;
+          firstValue = 1000;
+          props.myself.replaceWith(<SecondComponent value={secondValue} />);
+        }}>{props.value}</div>
+      );
+    };
+    const App = (props) => {
+      return (
+        <div>
+          <FirstComponent value={firstValue} />
+          <SecondComponent value={secondValue} />
+        </div>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const div1 = document.querySelector('.firstcomponent');
+    let div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('1');
+    div2.click();
+    div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('600');
+    app.cleanup();
+  });
+  it('should handle components with children', () => {
+    const Item = (props) => <li className="item">{props.value}</li>;
+    const Wrapper = (props) => <ul className="wrapper">{props.children}</ul>;
+    const App = (props) => {
+      return (
+        <Wrapper>
+          <Item value="Item 1" />
+          <Item value="Item 2" />
+          <Item value="Item 3" />
+        </Wrapper>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const ul = document.querySelector('ul');
+    const children = ul.childNodes;
+    expect(ul.className).to.be.equal('wrapper');
+    expect(children.length).to.be.equal(3);
+    expect(children[0].innerHTML).to.be.equal('Item 1');
+    expect(children[0].tagName).to.be.equal('LI');
+    expect(children[0].className).to.be.equal('item');
+    expect(children[1].innerHTML).to.be.equal('Item 2');
+    expect(children[1].tagName).to.be.equal('LI');
+    expect(children[1].className).to.be.equal('item');
+    expect(children[2].innerHTML).to.be.equal('Item 3');
+    expect(children[2].tagName).to.be.equal('LI');
+    expect(children[2].className).to.be.equal('item');
+    app.cleanup();
+  });
+  it('should play nice with predicates', () => {
+    const Item = (props) => <li className="item">{props.value}</li>;
+    const App = (props) => {
+      return (
+        <ul>
+          {React.predicate(true, <Item value="Item 1" />)}
+          {React.predicate(false, <Item value="Item 2" />)}
+          {React.predicate(() => true, <Item value="Item 3" />)}
+          {React.predicate(() => true, () => <Item value="Item 4" />)}
+        </ul>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const ul = document.querySelector('ul');
+    const children = ul.childNodes;
+    expect(children.length).to.be.equal(3);
+    expect(children[0].innerHTML).to.be.equal('Item 1');
+    expect(children[0].tagName).to.be.equal('LI');
+    expect(children[0].className).to.be.equal('item');
+    expect(children[1].innerHTML).to.be.equal('Item 3');
+    expect(children[1].tagName).to.be.equal('LI');
+    expect(children[1].className).to.be.equal('item');
+    expect(children[2].innerHTML).to.be.equal('Item 4');
+    expect(children[2].tagName).to.be.equal('LI');
+    expect(children[2].className).to.be.equal('item');
+    app.cleanup();
+  });
+  it('should be able to wrap other components easily', () => {
+    const Item = (props) => <li className="item">{props.value}</li>;
+    const Conditional = (props) => {
+      if (props.condition) {
+        return props.children;
+      } else {
+        return null;
+      }
+    };
+    const App = (props) => {
+      return (
+        <ul>
+          <Conditional condition={true}><Item value="Item 1" /></Conditional>
+          <Conditional condition={false}><Item value="Item 2" /></Conditional>
+          <Conditional condition={() => true}><Item value="Item 3" /></Conditional>
+          <Conditional condition={() => true}><Item value="Item 4" /></Conditional>
+        </ul>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const ul = document.querySelector('ul');
+    const children = ul.childNodes;
+    expect(children.length).to.be.equal(3);
+    expect(children[0].innerHTML).to.be.equal('Item 1');
+    expect(children[0].tagName).to.be.equal('LI');
+    expect(children[0].className).to.be.equal('item');
+    expect(children[1].innerHTML).to.be.equal('Item 3');
+    expect(children[1].tagName).to.be.equal('LI');
+    expect(children[1].className).to.be.equal('item');
+    expect(children[2].innerHTML).to.be.equal('Item 4');
+    expect(children[2].tagName).to.be.equal('LI');
+    expect(children[2].className).to.be.equal('item');
+    app.cleanup();
+  });
 });
 
 // DONE : function tag
-// TODO : tree redraw
-// TODO : tag redraw
-// TODO : tag replace
-// TODO : props.children
-// TODO : props.myself
-// TODO : props.context
+// DONE : tree redraw
+// DONE : tag redraw
+// DONE : tag replace
+// DONE : props.children
+// DONE : props.myself
+// DONE : props.context
 // DONE : svg
 // DONE : style
 // DONE : class + classes + bool classes

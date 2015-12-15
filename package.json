@@ -5,12 +5,14 @@
   "main": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "scripts": {
+    "compress": "gzip --best -c ./dist/elem.js > ./dist/elem.gzip",
+    "lines": "cloc src",
     "lint": "eslint src tests",
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register tests/index.js",
     "start": "NODE_ENV=dev webpack-dev-server -d --colors --hot --inline --progress",
     "bundle": "rm -rf ./dist && NODE_ENV=production webpack -p --colors --progress",
-    "lib": "rm -rf ./lib && babel src --out-dir lib && rm -f ./lib/demo.js",
-    "build": "npm run test && npm run lint && npm run lib && npm run bundle"
+    "lib": "rm -rf ./lib && babel src --out-dir lib",
+    "build": "npm run test && npm run lint && npm run lib && npm run bundle && npm run compress && npm run lines && ls -ahl ./dist"
   },
   "author": "Mathieu ANCELIN",
   "license": "MIT",

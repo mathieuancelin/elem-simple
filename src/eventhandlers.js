@@ -1,7 +1,7 @@
 import { isFunction, startsWith } from './utils';
 
 export function attachEvents(attrs, node) {
-  for (const key in attrs) {
+  for (const key in attrs) { // LOOP
     if (startsWith(key, 'on')) {
       const value = attrs[key];
       if (value && isFunction(value)) {

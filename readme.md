@@ -1,6 +1,6 @@
 # elem-simple
 
-Super simple version of elem, under 300 loc and 4Kb gzipped
+Super simple version of elem, under 300 loc and around 4Kb gzipped
 
 ```
 npm install --save elem-simple
@@ -12,21 +12,13 @@ or import the script from npmcdn with
 <script src="https://npmcdn.com/elem-simple/dist/elem.js"></script>
 ```
 
-### TODO
-
-* optimized loop (only once)
-* write tests
-* add documentation for list of features
-* add documentation for tree redraw and subtree redraw
-
 ### Basics
 
 the `Elem` API is pretty simple
 
-* `Elem.render(func, node)`: render the tree returned by the `function` into the `node`
+* `Elem.render(func, node, append = false)`: render the tree returned by the `function` into the `node`
 * `Elem.renderToString(func)`: return an HTML string representation of the tree returned by the `function`
 * `Elem.createElement(name, props, ...children)`: create a DOM node representation. Used by JSX expressions.
-* `Elem.jsx(name, props, ...children)`: like `createElement`
 * `Elem.predicate(predicate, node)`: return `node` if predicate is true
 
 you can use it this way
@@ -97,23 +89,23 @@ render(<App who="Mathieu" />, document.getElementById('app'));
 import Elem from 'elem-simple';
 
 const Item = ({ name = '--' }) => <li>{props.name}</li>;
-const App = (props) => ['Mathieu', 'Quentin'].map(item => <Item name={item} />);
+const App = (props) => props.who.map(item => <Item name={item} />);
 
-Elem.render(<App who="Mathieu" />, document.getElementById('app'));
+Elem.render(<App who={['Mathieu', 'Quentin']} />, document.getElementById('app'));
 ```
 
 ### Properties
 
-Whenever you use a function as a JSX tag, a `props` object is passed allong. In this `props` object you will find any parameters passed to the JSX node and the following properties :
+Whenever you use a function as a JSX tag, a `props` object is passed along. In this `props` object you will find any parameters passed to the JSX node and the following properties :
 
 * `props.children` : the children of the tag
   * `const list = <List><li>Hello</li></List>`
 * `props.redraw` : if you pass a function reference to `Elem.render` then any call to `redraw` from any component inside the tree will trigger a new `Elem.render` of the same function
 * `props.myself`
-  * `selector` : the query selector for the root node returned by the current function
   * `getNode()` : get the root node returned by the current function
-  * `redraw(element)` : replace the root node returned by the current function wtih another element
-* `props.context` : a plain old javascript object common to the whole tree. You can put whatener you need inside and you are responsible for it's management
+  * `redraw(props)` : redraw the root node returned by the current function with the same element and different props
+  * `replaceWith(element)` : replace the root node returned by the current function with another element
+* `props.context` : a plain old javascript object common to the whole tree. You can put whatever you need inside and you are responsible for it's management
 
 ### SVG support
 
@@ -191,3 +183,32 @@ const Component = (props) => {
 ### Predicate
 
 `Elem.predicate(predicate, element)` allow conditional render of JSX nodes
+
+### Specs
+
+* JSX first class support through `Elem.createElement` or `Elem.jsx`
+* reusable components are done via plain old functions
+  * each call to these functions are made by the library
+  * the first argument and only of the function is the properties of the element
+  * the properties contains a special attribute (`children`) that represents the array of children of the element. Can be empty
+  * the properties contains a special attribute (`redraw`) that allow the user to re-render the whole element tree passed to `Elem.render`
+  * the properties contains a special attribute (`myself`) that contains informations about the physical place in DOM where the element tree of the function will be inserted
+    * `myself` has a function called `getNode` that returns the root node return by the function
+    * `myself` has a function called `redraw` that recall the original function with new properties and renders it at the same place
+    * `myself` has a function called `replaceWith` that renders it a new element tree at the same place
+  * if you define the property `className` (the class) it can be
+    * a simple string
+    * an array of string
+    * an object with boolean values. Each key with a true value will be added to the class
+  * if you define the property `style` it can be
+    * a simple string
+    * an object that will be serialized to a style value
+  * if you define the property `ref` on a DOM element as a function, this function will be called with the actual DOM node created by `Elem` as the first parameter of the function
+* `Elem.render` can render pure elements or a function that returns elements
+* `Elem.render` takes an `HTMLElement` as second parameter
+* `Elem.render` can take a third parameter to specify if the element tree will be appended to the root node of if the content of the root node will be deleted. By default, it's deleted
+* `Elem.renderToString` return a string output of the element tree
+* `Elem.renderToString` doesn't need to be called inside a browser env
+* `Elem.predicate` returns the object passed a second param if the predicate passed as first param is true
+* `Elem.predicate` first param can be a function
+* `Elem` can render `SVG` nodes

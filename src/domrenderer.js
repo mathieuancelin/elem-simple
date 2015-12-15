@@ -9,7 +9,7 @@ export function renderToDOM(document, element, ctx) {
     const node = element.namespace ?
       document.createElementNS(element.namespace, element.name) :
       document.createElement(element.name);
-    for (const key in element.props) {
+    for (const key in element.props) { // LOOP
       const value = element.props[key];
       if (key !== 'ref' && key !== 'attributes' && !startsWith(key, 'on') && !isFunction(value)) {
         if (key === 'value' && element.name === 'input') {
@@ -17,7 +17,7 @@ export function renderToDOM(document, element, ctx) {
         } else if (key === 'indeterminate' && element.name === 'input') {
           node.indeterminate = value;
         } else if (key === 'className' || key === 'class') {
-          node.setAttribute('class', serializeClass(value).join(' '));
+          node.setAttribute('class', serializeClass(value));
         } else if (key === 'style') {
           node.setAttribute('style', serializeStyle(value));
         } else {
@@ -30,7 +30,7 @@ export function renderToDOM(document, element, ctx) {
       }
     }
     attachEvents(element.props, node);
-    for (const childIdx in element.children) {
+    for (const childIdx in element.children) { // LOOP
       let child = element.children[childIdx];
       if (child && isFunction(child)) {
         child = child();
@@ -49,7 +49,7 @@ export function renderToDOM(document, element, ctx) {
       element.props.ref(node);
     }
     return node;
-  } else {
+  } else if (element.__type === 'function-node') {
     const funcElement = renderFunction(element, ctx, document);
     const funcNode = renderToDOM(document, funcElement, ctx);
     funcNode.setAttribute('data-funccallid', element.nodeId);

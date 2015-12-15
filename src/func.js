@@ -7,7 +7,11 @@ export function renderFunction(el, ctx, document) {
     id: el.nodeId,
     selector, getNode,
     redraw(props) {
-      return renderFunction({ ...el, props: props || el.props }, ctx, document);
+      const elements = renderFunction({ ...el, props: props || el.props }, ctx, document);
+      const oldNode = getNode();
+      const parentNode = oldNode.parentNode;
+      const newNode = renderToDOM(document, elements, ctx);
+      parentNode.replaceChild(newNode, oldNode);
     },
     replaceWith(element) {
       const oldNode = getNode();

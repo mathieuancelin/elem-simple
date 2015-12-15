@@ -1,7 +1,7 @@
 import { renderToDOM } from './domrenderer';
 
 export function renderFunction(el, ctx, document) {
-  const selector = '[data-funccallid="' + el.nodeId + '"]';
+  const selector = '[data-fid="' + el.nodeId + '"]';
   const getNode = () => document.querySelector(selector);
   const myself = {
     id: el.nodeId,

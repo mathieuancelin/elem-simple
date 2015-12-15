@@ -42,7 +42,9 @@ export function renderToDOM(document, element, ctx) {
         } else {
           childNode = document.createTextNode(String(child));
         }
-        node.appendChild(childNode);
+        if (childNode) {
+          node.appendChild(childNode);
+        }
       }
     }
     if (element.props.ref && isFunction(element.props.ref)) {
@@ -51,8 +53,10 @@ export function renderToDOM(document, element, ctx) {
     return node;
   } else if (element.__type === 'function-node') {
     const funcElement = renderFunction(element, ctx, document);
+    if (!funcElement) return null;
     const funcNode = renderToDOM(document, funcElement, ctx);
-    funcNode.setAttribute('data-funccallid', element.nodeId);
+    if (!funcNode) return null;
+    funcNode.setAttribute('data-fid', element.nodeId);
     return funcNode;
   }
 }

@@ -2,6 +2,9 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { bootstrapEnv } from './bootstrap';
+
+bootstrapEnv('<div id="app"></div>');
 
 describe('elem-simple : perfs', function() {
   this.timeout(15000);

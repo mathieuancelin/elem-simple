@@ -9,6 +9,7 @@
     "lines": "cloc src",
     "lint": "eslint src tests",
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register tests/index.js",
+    "perfs": "NODE_ENV=test mocha --compilers js:babel-core/register tests/perfs.spec.js",
     "start": "NODE_ENV=dev webpack-dev-server -d --colors --hot --inline --progress",
     "bundle": "rm -rf ./dist && NODE_ENV=production webpack -p --colors --progress",
     "lib": "rm -rf ./lib && babel src --out-dir lib",

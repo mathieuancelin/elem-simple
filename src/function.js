@@ -9,15 +9,13 @@ export function renderFunction(el, ctx, document) {
     redraw(props) {
       const elements = renderFunction({ ...el, props: props || el.props }, ctx, document);
       const oldNode = getNode();
-      const parentNode = oldNode.parentNode;
       const newNode = serializeElementToDOM(document, elements, ctx);
-      parentNode.replaceChild(newNode, oldNode);
+      oldNode.parentNode.replaceChild(newNode, oldNode);
     },
     replaceWith(element) {
       const oldNode = getNode();
-      const parentNode = oldNode.parentNode;
       const newNode = serializeElementToDOM(document, element, ctx);
-      parentNode.replaceChild(newNode, oldNode);
+      oldNode.parentNode.replaceChild(newNode, oldNode);
     },
   };
   return el.render({ ...el.props, children: el.children, redraw: ctx.redraw, myself, context: ctx.context });

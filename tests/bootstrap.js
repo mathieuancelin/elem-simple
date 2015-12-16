@@ -1,9 +1,7 @@
-/* eslint no-console: 0 */
-
 import jsdom from 'jsdom';
 
-export function setupEnv() {
-  const doc = jsdom.jsdom('<!doctype html><html><body><div id="app"></div></body></html>');
+export function bootstrapEnv(body = '') {
+  const doc = jsdom.jsdom(`<!doctype html><html><body>${body}</body></html>`);
   const win = doc.defaultView;
   function propagateToGlobal(window) {
     for (const key in window) {
@@ -15,5 +13,4 @@ export function setupEnv() {
   global.document = doc;
   global.window = win;
   propagateToGlobal(win);
-  console.log('\nENV setup is done !!!');
 }

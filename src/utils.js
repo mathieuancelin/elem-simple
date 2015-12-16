@@ -13,8 +13,7 @@ export function startsWith(source, start) {
 
 export function dasherize(what) {
   return what.replace(/([A-Z\d]+)([A-Z][a-z])/g, '$1_$2')
-    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-    .toLowerCase().replace(/_/g, '-');
+    .replace(/([a-z\d])([A-Z])/g, '$1_$2').toLowerCase().replace(/_/g, '-');
 }
 
 export function invariant(condition, message, ...args) {

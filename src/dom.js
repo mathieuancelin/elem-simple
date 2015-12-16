@@ -4,6 +4,10 @@ import { renderFunction } from './function';
 import { serializeStyle } from './style';
 import { serializeClass } from './class';
 
+/**
+ * Serialize an element tree into a DOM node tree. Attach event handlers,
+ * direct attributes and traverse children of each node.
+ */
 export function serializeElementToDOM(document, element, ctx) {
   if (element.__type === 'simple-node') {
     const node = element.namespace ?

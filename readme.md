@@ -1,6 +1,6 @@
 # elem-simple
 
-Super simple version of elem, under 300 loc and around 4Kb gzipped
+Super simple version of elem, under 300 loc and around 3Kb gzipped
 
 ```
 npm install --save elem-simple
@@ -16,7 +16,7 @@ or import the script from npmcdn with
 
 the `Elem` API is pretty simple
 
-* `Elem.createElement(name, props, ...children)`: create a DOM node representation (called an element below). Used by JSX expressions.
+* `Elem.createElement(name, props, ...children)`: create the representation of a DOM node(called an element below). Used by JSX expressions.
 * `Elem.render(func, node, append = false)`: render the tree of elements returned by the `function` into the `node`
 * `Elem.renderToString(func)`: return an HTML string representation for the tree of elements returned by the `function`
 * `Elem.predicate(predicate, node)`: return `node` if predicate is true
@@ -83,13 +83,13 @@ const App = ({ who = 'World' }) => <h1>Hello {who}!</h1>;
 render(<App who="Mathieu" />, document.getElementById('app'));
 ```
 
-### Functions as tag
+### Functions as tags or stateless components
 
 ```javascript
 import Elem from 'elem-simple';
 
 const Item = ({ name = '--' }) => <li>{props.name}</li>;
-const App = (props) => props.who.map(item => <Item name={item} />);
+const App = (props) => <ul>{props.who.map(item => <Item name={item} />)}</ul>;
 
 Elem.render(<App who={['Mathieu', 'Quentin']} />, document.getElementById('app'));
 ```

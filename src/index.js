@@ -3,12 +3,18 @@ import { namespace } from './svg';
 import { serializeElementToDOM } from './dom';
 import { serializeElementToString } from './universal';
 
+/**
+ * Clear children of a DOM node
+ */
 function clearNode(node) {
   while (!isUndefined(node) && node !== null && node.firstChild) {
     node.removeChild(node.firstChild);
   }
 }
 
+/**
+ * Render an element tree or a function that returns an element tree into an HTML string
+ */
 export function renderToString(func) {
   invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
   if (isFunction(func)) {
@@ -17,6 +23,9 @@ export function renderToString(func) {
   return serializeElementToString(func);
 }
 
+/**
+ * Render an element tree or a function that returns an element tree into a root node
+ */
 export function render(func, node, append = false) {
   invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `render`');
   invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');

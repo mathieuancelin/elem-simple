@@ -1,5 +1,8 @@
 import { isFunction, isString, dasherize } from './utils';
 
+/**
+ * Serialize a plain old object into a style string: '${key}:${value};*'
+ */
 export function serializeStyle(style) {
   if (!style) return '';
   if (isString(style)) return style;

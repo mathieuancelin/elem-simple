@@ -1,5 +1,6 @@
 import { includes, dasherize } from './utils';
 
+// possible SVG elements
 const svgElements = ['altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate', 'animateColor', 'animateMotion', 'animateTransform',
   'circle', 'clipPath', 'color-profile', 'cursor', 'defs', 'desc', 'ellipse', 'feBlend', 'feColorMatrix', 'feComponentTransfer',
   'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR',
@@ -10,6 +11,9 @@ const svgElements = ['altGlyph', 'altGlyphDef', 'altGlyphItem', 'animate', 'anim
 
 const svgNS = 'http://www.w3.org/2000/svg';
 
+/**
+ * return SVG namespace if the current name is an SVG element name
+ */
 export function namespace(of) {
   if (includes(svgElements, dasherize(of.toLowerCase()))) {
     return svgNS;

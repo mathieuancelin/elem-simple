@@ -2,6 +2,9 @@ import { dasherize, isFunction, startsWith } from './utils';
 import { serializeStyle } from './style';
 import { serializeClass } from './class';
 
+/**
+ * Serialize an element tree into an HTML string
+ */
 export function serializeElementToString(element) {
   if (element.__type === 'simple-node') {
     const node = [];

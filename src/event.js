@@ -1,5 +1,9 @@
 import { isFunction, startsWith, invariant } from './utils';
 
+/**
+ * Search every properties that start with `on` and attach the corresponding event
+ * handler on the corresponding DOM node
+ */
 export function attachEvents(attrs, node) {
   for (const key in attrs) { // LOOP
     if (startsWith(key, 'on')) {

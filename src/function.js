@@ -1,5 +1,8 @@
 import { serializeElementToDOM } from './dom';
 
+/**
+ * Call a functional element with the corresponding context and return the element tree.
+ */
 export function renderFunction(el, ctx, document) {
   const selector = '[data-fid="' + el.nodeId + '"]';
   const getNode = () => document.querySelector(selector);

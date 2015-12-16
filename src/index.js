@@ -18,7 +18,7 @@ export function renderToString(func) {
 }
 
 export function render(func, node, append = false) {
-  invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
+  invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `render`');
   invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
   const nodeId = sid('root-');
   if (!isFunction(func)) {

@@ -16,9 +16,9 @@ or import the script from npmcdn with
 
 the `Elem` API is pretty simple
 
-* `Elem.render(func, node, append = false)`: render the tree returned by the `function` into the `node`
-* `Elem.renderToString(func)`: return an HTML string representation of the tree returned by the `function`
-* `Elem.createElement(name, props, ...children)`: create a DOM node representation. Used by JSX expressions.
+* `Elem.createElement(name, props, ...children)`: create a DOM node representation (called an element below). Used by JSX expressions.
+* `Elem.render(func, node, append = false)`: render the tree of elements returned by the `function` into the `node`
+* `Elem.renderToString(func)`: return an HTML string representation for the tree of elements returned by the `function`
 * `Elem.predicate(predicate, node)`: return `node` if predicate is true
 
 you can use it this way
@@ -100,7 +100,7 @@ Whenever you use a function as a JSX tag, a `props` object is passed along. In t
 
 * `props.children` : the children of the tag
   * `const list = <List><li>Hello</li></List>`
-* `props.redraw` : if you pass a function reference to `Elem.render` then any call to `redraw` from any component inside the tree will trigger a new `Elem.render` of the same function
+* `props.redraw` : if you pass a function reference to `Elem.render` then any call to `redraw` from any function element inside the tree will trigger a new `Elem.render` of the same function
 * `props.myself`
   * `getNode()` : get the root node returned by the current function
   * `redraw(props)` : redraw the root node returned by the current function with the same element and different props

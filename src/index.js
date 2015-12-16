@@ -1,7 +1,7 @@
 import { sid, isFunction, escape, isUndefined } from './utils';
 import { namespace } from './svg';
-import { renderToDOM } from './domrenderer';
-import { serializeElement } from './stringrenderer';
+import { serializeElementToDOM } from './dom';
+import { serializeElementToString } from './universal';
 
 function clearNode(node) {
   while (!isUndefined(node) && node !== null && node.firstChild) {
@@ -11,9 +11,9 @@ function clearNode(node) {
 
 export function renderToString(func) {
   if (isFunction(func)) {
-    return serializeElement(func({ children: [], myself: {}, redraw: {}, context: {} }));
+    return serializeElementToString(func({ children: [], myself: {}, redraw: {}, context: {} }));
   }
-  return serializeElement(func);
+  return serializeElementToString(func);
 }
 
 export function render(func, node, append = false) {
@@ -24,7 +24,7 @@ export function render(func, node, append = false) {
   const ctx = { context: {} };
   ctx.redraw = () => {
     const tree = func({ children: [], myself: {}, redraw: ctx.redraw, context: ctx.context });
-    const domNode = renderToDOM(window.document, tree, ctx);
+    const domNode = serializeElementToDOM(window.document, tree, ctx);
     if (!append) {
       clearNode(node);
     }

@@ -2,7 +2,7 @@ import { dasherize, isFunction, startsWith } from './utils';
 import { serializeStyle } from './style';
 import { serializeClass } from './class';
 
-export function serializeElement(element) {
+export function serializeElementToString(element) {
   if (element.__type === 'simple-node') {
     const node = [];
     const children = [];
@@ -32,7 +32,7 @@ export function serializeElement(element) {
       if (child) {
         let childNode;
         if (child.__type) {
-          childNode = serializeElement(child);
+          childNode = serializeElementToString(child);
         } else {
           childNode = String(child);
         }
@@ -42,6 +42,6 @@ export function serializeElement(element) {
     return `<${element.name}${node.length > 0 ? ' ' : ''}${node.join(' ')}>${children.join('')}</${element.name}>`;
   } else {
     const funcElement = element.render({ ...element.props, children: element.children, redraw: () => ({}) });
-    return serializeElement(funcElement);
+    return serializeElementToString(funcElement);
   }
 }

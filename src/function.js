@@ -1,4 +1,4 @@
-import { renderToDOM } from './domrenderer';
+import { serializeElementToDOM } from './dom';
 
 export function renderFunction(el, ctx, document) {
   const selector = '[data-fid="' + el.nodeId + '"]';
@@ -10,13 +10,13 @@ export function renderFunction(el, ctx, document) {
       const elements = renderFunction({ ...el, props: props || el.props }, ctx, document);
       const oldNode = getNode();
       const parentNode = oldNode.parentNode;
-      const newNode = renderToDOM(document, elements, ctx);
+      const newNode = serializeElementToDOM(document, elements, ctx);
       parentNode.replaceChild(newNode, oldNode);
     },
     replaceWith(element) {
       const oldNode = getNode();
       const parentNode = oldNode.parentNode;
-      const newNode = renderToDOM(document, element, ctx);
+      const newNode = serializeElementToDOM(document, element, ctx);
       parentNode.replaceChild(newNode, oldNode);
     },
   };

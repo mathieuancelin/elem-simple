@@ -1,10 +1,10 @@
 import { dasherize, isFunction, startsWith } from './utils';
-import { attachEvents } from './eventhandlers';
-import { renderFunction } from './func';
+import { attachEvents } from './event';
+import { renderFunction } from './function';
 import { serializeStyle } from './style';
 import { serializeClass } from './class';
 
-export function renderToDOM(document, element, ctx) {
+export function serializeElementToDOM(document, element, ctx) {
   if (element.__type === 'simple-node') {
     const node = element.namespace ?
       document.createElementNS(element.namespace, element.name) :
@@ -38,7 +38,7 @@ export function renderToDOM(document, element, ctx) {
       if (child) {
         let childNode;
         if (child.__type) {
-          childNode = renderToDOM(document, child, ctx);
+          childNode = serializeElementToDOM(document, child, ctx);
         } else {
           childNode = document.createTextNode(String(child));
         }
@@ -54,7 +54,7 @@ export function renderToDOM(document, element, ctx) {
   } else if (element.__type === 'function-node') {
     const funcElement = renderFunction(element, ctx, document);
     if (!funcElement) return null;
-    const funcNode = renderToDOM(document, funcElement, ctx);
+    const funcNode = serializeElementToDOM(document, funcElement, ctx);
     if (!funcNode) return null;
     funcNode.setAttribute('data-fid', element.nodeId);
     return funcNode;

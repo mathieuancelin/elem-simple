@@ -187,6 +187,7 @@ const Component = (props) => {
 ### Specs
 
 * JSX first class support through `Elem.createElement` or `Elem.jsx`
+* you can attach event handlers on any DOM element with a function as property called `onEventname`
 * reusable components are done via plain old functions
   * each call to these functions are made by the library
   * the first argument and only of the function is the properties of the element

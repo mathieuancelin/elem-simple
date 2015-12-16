@@ -1,4 +1,4 @@
-import { sid, isFunction, escape, isUndefined } from './utils';
+import { sid, isFunction, isString, escape, isUndefined, invariant } from './utils';
 import { namespace } from './svg';
 import { serializeElementToDOM } from './dom';
 import { serializeElementToString } from './universal';
@@ -10,6 +10,7 @@ function clearNode(node) {
 }
 
 export function renderToString(func) {
+  invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
   if (isFunction(func)) {
     return serializeElementToString(func({ children: [], myself: {}, redraw: {}, context: {} }));
   }
@@ -17,6 +18,8 @@ export function renderToString(func) {
 }
 
 export function render(func, node, append = false) {
+  invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
+  invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
   const nodeId = sid('root-');
   if (!isFunction(func)) {
     return render(() => func, node);
@@ -28,12 +31,12 @@ export function render(func, node, append = false) {
     if (!append) {
       clearNode(node);
     }
-    domNode.setAttribute('data-rootid', nodeId);
+    domNode.setAttribute('data-root', nodeId);
     node.appendChild(domNode);
   };
   ctx.redraw();
   return {
-    getNode: () => document.querySelector(`[data-rootid="${nodeId}"]`),
+    getNode: () => document.querySelector(`[data-root="${nodeId}"]`),
     redraw: ctx.redraw,
     cleanup: () => clearNode(node),
   };
@@ -47,6 +50,7 @@ export function render(func, node, append = false) {
  * @param children : the children of the node, a vararg
  */
 export function createElement(name, props, ...children) {
+  invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as name');
   const nodeId = sid('node-');
   if (isFunction(name)) {
     return {

@@ -7,7 +7,9 @@ import { serializeElementToString } from './universal';
  * Clear children of a DOM node
  */
 function clearNode(node) {
+  // while the node has children
   while (!isUndefined(node) && node !== null && node.firstChild) {
+    // remove the first one
     node.removeChild(node.firstChild);
   }
 }
@@ -16,9 +18,10 @@ function clearNode(node) {
  * Render an element tree or a function that returns an element tree into an HTML string
  */
 export function renderToString(func) {
+  // check if param is a function or an element
   invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
   if (isFunction(func)) {
-    return serializeElementToString(func({ children: [], myself: {}, redraw: {}, context: {} }));
+    return serializeElementToString(func({ children: [], myself: {}, redraw: {}, treeContext: {} }));
   }
   return serializeElementToString(func);
 }
@@ -27,26 +30,37 @@ export function renderToString(func) {
  * Render an element tree or a function that returns an element tree into a root node
  */
 export function render(func, node, append = false) {
+  // check the type of stuff to render and the place where you want to render it
   invariant(isFunction(func) || func.__type, 'You have to provide a function or an element to `render`');
   invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
   const nodeId = sid('root-');
   if (!isFunction(func)) {
     return render(() => func, node);
   }
+  // create the tree context
   const ctx = { context: {} };
+  // create the function to be able to redraw the tree
   ctx.redraw = () => {
-    const tree = func({ children: [], myself: {}, redraw: ctx.redraw, context: ctx.context });
+    // call the function
+    const tree = func({ children: [], myself: {}, redraw: ctx.redraw, treeContext: ctx.context });
+    // render the sub tree as actual DOM node
     const domNode = serializeElementToDOM(window.document, tree, ctx);
+    // if not in append mode, clear the root node
     if (!append) {
       clearNode(node);
     }
     domNode.setAttribute('data-root', nodeId);
+    // append the tree to the root node
     node.appendChild(domNode);
   };
+  // launch the drawing
   ctx.redraw();
   return {
+    // return the first DOM node of the component
     getNode: () => document.querySelector(`[data-root="${nodeId}"]`),
+    // trigger a redraw
     redraw: ctx.redraw,
+    // cleanup everything
     cleanup: () => clearNode(node),
   };
 }
@@ -59,8 +73,10 @@ export function render(func, node, append = false) {
  * @param children : the children of the node, a vararg
  */
 export function createElement(name, props, ...children) {
+  // check if name is a function or a string
   invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as name');
   const nodeId = sid('node-');
+  // create the element instance according to name type
   if (isFunction(name)) {
     return {
       __type: 'function-node', nodeId, render: name, props: props || {},

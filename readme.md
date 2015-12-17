@@ -105,7 +105,14 @@ Whenever you use a function as a JSX tag, a `props` object is passed along. In t
   * `getNode()` : get the root node returned by the current function
   * `redraw(props)` : redraw the root node returned by the current function with the same element and different props
   * `replaceWith(element)` : replace the root node returned by the current function with another element
-* `props.context` : a plain old javascript object common to the whole tree. You can put whatever you need inside and you are responsible for it's management
+* `props.treeContext` : a plain old javascript object common to the whole tree. You can put whatever you need inside and you are responsible for it's management
+
+So when you are passing properties to a functional element, avoid to name your properties with the following values
+
+* children
+* redraw
+* myself
+* treeContext
 
 ### SVG support
 
@@ -213,3 +220,4 @@ const Component = (props) => {
 * `Elem.predicate` returns the object passed a second param if the predicate passed as first param is true
 * `Elem.predicate` first param can be a function
 * `Elem` can render `SVG` nodes
+* if you pass an `attributes` object on an HTML element, all the values of the object will be directly set on the actual DOM node. Works for stuff like `innerHTML`, `indeterminate`, etc ...

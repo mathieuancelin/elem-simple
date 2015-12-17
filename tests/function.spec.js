@@ -25,12 +25,12 @@ describe('elem-simple : functions', () => {
   });
   it('should provide a context to its components', () => {
     const FirstComponent = (props) => {
-      props.context.secondvalue = 'value2';
-      return <div className="firstcomponent">{props.context.value}</div>;
+      props.treeContext.secondvalue = 'value2';
+      return <div className="firstcomponent">{props.treeContext.value}</div>;
     };
-    const SecondComponent = (props) => <div className="secondcomponent">{props.context.value} {props.context.secondvalue}</div>;
+    const SecondComponent = (props) => <div className="secondcomponent">{props.treeContext.value} {props.treeContext.secondvalue}</div>;
     const App = (props) => {
-      props.context.value = 'value1';
+      props.treeContext.value = 'value1';
       return (
         <div>
           <FirstComponent />

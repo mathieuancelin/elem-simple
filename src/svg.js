@@ -13,6 +13,7 @@ const svgNS = 'http://www.w3.org/2000/svg';
 
 /**
  * return SVG namespace if the current name is an SVG element name
+ * @param of the name of the element
  */
 export function namespace(of) {
   if (includes(svgElements, dasherize(of.toLowerCase()))) {

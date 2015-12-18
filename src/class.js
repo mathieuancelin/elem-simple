@@ -16,9 +16,7 @@ export function serializeClass(classes) {
   for (const key in classes) {
     const value = classes[key];
     // if the value is true, add it to classNames
-    if (value === true) {
-      classNames.push(dasherize(key));
-    }
+    if (value === true) classNames.push(dasherize(key));
   }
   // serialize the class array as string
   return classNames.join(' ');

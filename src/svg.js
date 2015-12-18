@@ -16,8 +16,6 @@ const svgNS = 'http://www.w3.org/2000/svg';
  * @param of the name of the element
  */
 export function namespace(of) {
-  if (includes(svgElements, dasherize(of.toLowerCase()))) {
-    return svgNS;
-  }
+  if (includes(svgElements, dasherize(of.toLowerCase()))) return svgNS;
   return undefined;
 }

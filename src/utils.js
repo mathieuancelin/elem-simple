@@ -72,6 +72,11 @@ export function escape(value = '') {
 export const isArray = Array.isArray;
 
 /**
+ * change any object to an array
+ */
+export const toArray = (what) => isArray(what) ? what : [what];
+
+/**
  * check if value is undefined
  */
 export const isUndefined = (χ) => χ === undefined;

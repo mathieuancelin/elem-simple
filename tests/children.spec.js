@@ -166,7 +166,9 @@ describe('elem-simple : children', () => {
     ];
     const app = React.render(App, document.getElementById('app'));
     const li = [].slice.call(document.querySelectorAll('li'));
+    const li2 = document.getElementById('app').childNodes;
     expect(li.length).to.be.equal(3);
+    expect(li2.length).to.be.equal(3);
     app.cleanup();
   });
 });

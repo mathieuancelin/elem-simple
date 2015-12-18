@@ -32,7 +32,10 @@ export function dasherize(what) {
 export function invariant(condition, message, ...args) {
   if (!condition) {
     let argIndex = 0;
-    throw new Error(`Violation : ${message.replace(/%s/g, () => { return args[argIndex++]; })}`);
+    const error = new Error(`${message.replace(/%s/g, () => { return args[argIndex++]; })}`);
+    error.name = 'Violation';
+    error.framesToPop = 2;
+    throw error;
   }
 }
 

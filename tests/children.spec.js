@@ -158,4 +158,15 @@ describe('elem-simple : children', () => {
     expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
   });
+  it('should be able to render an array', () => {
+    const App = [
+      <li>Item 1</li>,
+      <li>Item 2</li>,
+      <li>Item 3</li>,
+    ];
+    const app = React.render(App, document.getElementById('app'));
+    const li = [].slice.call(document.querySelectorAll('li'));
+    expect(li.length).to.be.equal(3);
+    app.cleanup();
+  });
 });

@@ -91,7 +91,7 @@ export function createElement(name, props, ...children) {
   };
 }
 
-// a simple method alias to stay compatible with other version of Elem
+// aliases to stay compatible with other version of Elem
 export const jsx = createElement;
 
 /**

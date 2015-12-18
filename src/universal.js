@@ -37,7 +37,7 @@ export function serializeElementToString(element) {
       if (child && isFunction(child)) {
         child = child();
       }
-      if (child) {
+      if (child || child === 0) {
         let childNode;
         if (child.__type) {
           // if it's an element, recursive call to serialize it

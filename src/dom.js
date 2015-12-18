@@ -49,7 +49,7 @@ export function serializeElementToDOM(document, element, ctx) {
       if (child && isFunction(child)) {
         child = child();
       }
-      if (child) {
+      if (child || child === 0) {
         let childNode;
         if (child.__type) {
           // recursive call if a children is an element

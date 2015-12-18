@@ -61,7 +61,7 @@ describe('elem-simple : children', () => {
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(ul.className).to.be.equal('wrapper');
-    expect(children.length).to.be.equal(6);
+    expect(children.length).to.be.equal(7);
     expect(children[0].innerHTML).to.be.equal('Item 1');
     expect(children[0].tagName).to.be.equal('LI');
     expect(children[0].className).to.be.equal('item');
@@ -77,9 +77,9 @@ describe('elem-simple : children', () => {
     expect(children[4].innerHTML).to.be.equal('Item 5');
     expect(children[4].tagName).to.be.equal('LI');
     expect(children[4].className).to.be.equal('item');
-    expect(children[5].innerHTML).to.be.equal('Item 6');
-    expect(children[5].tagName).to.be.equal('LI');
-    expect(children[5].className).to.be.equal('item');
+    expect(children[6].innerHTML).to.be.equal('Item 6');
+    expect(children[6].tagName).to.be.equal('LI');
+    expect(children[6].className).to.be.equal('item');
     app.cleanup();
   });
   it('should handle components with null, undefined, false, and array children as tags', () => {
@@ -130,6 +130,32 @@ describe('elem-simple : children', () => {
     expect(children[5].innerHTML).to.be.equal('Item 6');
     expect(children[5].tagName).to.be.equal('LI');
     expect(children[5].className).to.be.equal('item');
+    app.cleanup();
+  });
+  it('should handle a zero child', () => {
+    const App = (props) => {
+      return (
+        <ul>
+          <li>{0}</li>
+        </ul>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const li = document.querySelector('li');
+    expect(li.innerHTML).to.be.equal('0');
+    app.cleanup();
+  });
+  it('should handle a zero child JSX', () => {
+    const App = (props) => {
+      return (
+        <ul>
+          <li>0</li>
+        </ul>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const li = document.querySelector('li');
+    expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
   });
 });

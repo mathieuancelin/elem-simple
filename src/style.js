@@ -15,10 +15,12 @@ export function serializeStyle(style) {
   for (const key in style) {
     const keyName = dasherize(key);
     let value = style[key];
+    /* istanbul ignore else */
     if (value) {
       if (isFunction(value)) {
         value = value();
       }
+      /* istanbul ignore else */
       if (value) {
         styles.push(`${keyName}:${value};`);
       }

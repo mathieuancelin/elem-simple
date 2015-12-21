@@ -2,6 +2,8 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
+import { invariant, escape, sid } from '../src/utils';
 
 describe('elem-simple', () => {
   it('should just work !!!', () => {
@@ -29,10 +31,11 @@ describe('elem-simple', () => {
           {React.predicate(false, <Item value="Item 2" />)}
           {React.predicate(() => true, <Item value="Item 3" />)}
           {React.predicate(() => true, () => <Item value="Item 4" />)}
+          {React.predicate(() => false, () => <Item value="Item 5" />)}
         </ul>
       );
     };
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(App, document.getElementById('app'), true);
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(children.length).to.be.equal(3);
@@ -73,6 +76,17 @@ describe('elem-simple', () => {
     expect(children[2].tagName).to.be.equal('LI');
     expect(children[2].className).to.be.equal('item');
     app.cleanup();
+  });
+  it('shoud have a working invariant', () => {
+    const working = () => invariant(true, 'This should pass %s', ':-)');
+    const notworking = () => invariant(false, 'This should not pass %s', ':-(');
+    expect(working).to.not.throw('This should pass :-)');
+    expect(notworking).to.throw('This should not pass :-(');
+  });
+  it('should provide nice utils', () => {
+    escape('<div />');
+    escape();
+    sid();
   });
 });
 

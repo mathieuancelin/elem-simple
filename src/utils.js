@@ -54,16 +54,16 @@ const replaceRegexp = RegExp(source, 'g');
 /**
  * check if value is an object
  */
-export function isObject(χ) {
-  return !!χ && (typeof χ == 'object' || typeof χ == 'function');
+export function isObject(x) {
+  /* istanbul ignore next */
+  return !!x && (typeof x === 'object' || typeof x === 'function');
 }
 
 /**
  * Escape HTML expressions
  */
 export function escape(value = '') {
-  const string = value === null ? '' : '' + value;
-  return testRegexp.test(string) ? string.replace(replaceRegexp, (match) => escapeMap[match]) : string;
+  return testRegexp.test(value) ? value.replace(replaceRegexp, (match) => escapeMap[match]) : value;
 }
 
 /**
@@ -79,7 +79,7 @@ export const toArray = (what) => isArray(what) ? what : [what];
 /**
  * check if value is undefined
  */
-export const isUndefined = (χ) => χ === undefined;
+export const isUndefined = (x) => x === undefined;
 
 /**
  * check if an array caontains a value
@@ -89,9 +89,10 @@ export const includes = (array, what) => array.indexOf(what) > -1;
 /**
  * check if value is a function
  */
-export const isFunction = (χ) => isObject(χ) && Object.prototype.toString.call(χ) == '[object Function]';
+export const isFunction = (x) => isObject(x) && Object.prototype.toString.call(x) === '[object Function]';
 
 /**
  * check if value is a string
  */
-export const isString = (χ) => typeof χ == 'string' || ((!!χ && typeof χ == 'object') && Object.prototype.toString.call(χ) == '[object String]');
+ /* istanbul ignore next */
+export const isString = (x) => typeof x === 'string' || ((!!x && typeof x === 'object') && Object.prototype.toString.call(x) === '[object String]');

@@ -2,6 +2,7 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : children', () => {
   it('should handle components with children', () => {

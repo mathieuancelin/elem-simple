@@ -10,8 +10,10 @@ import { isFunction, startsWith, invariant } from './utils';
 export function attachEvents(properties, domNode) {
   for (const key in properties) { // LOOP
     // if the property starts with 'on' it should be an event handler
+    /* istanbul ignore else */
     if (startsWith(key, 'on')) {
       const value = properties[key];
+      /* istanbul ignore else */
       if (value) {
         // check if it's a function
         invariant(isFunction(value), `${key} should be a function`);

@@ -2,6 +2,7 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : class', () => {
   it('should handle simple className', () => {
@@ -13,6 +14,17 @@ describe('elem-simple : class', () => {
     const app = React.render(App, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.getAttribute('class')).to.be.equal('btn');
+    app.cleanup();
+  });
+  it('should handle undefined className', () => {
+    const App = (props) => {
+      return (
+        <h1 className={undefined}>Hello World!</h1>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const h1 = document.getElementsByTagName('h1')[0];
+    expect(h1.getAttribute('class')).to.be.equal('');
     app.cleanup();
   });
   it('should handle array className', () => {

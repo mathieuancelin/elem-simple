@@ -2,6 +2,7 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : attributes', () => {
   it('should handle direct attributes with the `attributes` props', () => {
@@ -14,6 +15,18 @@ describe('elem-simple : attributes', () => {
     const app = React.render(<div attributes={{ innerHTML: '<h1>Test innerHTML</h1>' }}></div>, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.innerHTML).to.be.equal('Test innerHTML');
+    app.cleanup();
+  });
+  it('should handle indeterminate on input with the `attributes` props', () => {
+    const app = React.render(<input type="checkbox" attributes={{ indeterminate: true }} />, document.getElementById('app'));
+    const input = document.getElementsByTagName('input')[0];
+    expect(input.indeterminate).to.be.true;
+    app.cleanup();
+  });
+  it('should handle indeterminate on input directly on the element', () => {
+    const app = React.render(<input type="checkbox" indeterminate={true} />, document.getElementById('app'));
+    const input = document.getElementsByTagName('input')[0];
+    expect(input.indeterminate).to.be.true;
     app.cleanup();
   });
 });

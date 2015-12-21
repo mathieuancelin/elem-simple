@@ -2,6 +2,7 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : refs', () => {
   it('should provide a way to get actual DOM node references', () => {

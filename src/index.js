@@ -22,7 +22,7 @@ export function renderToString(func) {
   invariant(isFunction(func) || isArray(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
   if (!isFunction(func)) return serializeElementToString(func);
   return toArray(func({ children: [], myself: {}, redraw: {}, treeContext: {} }))
-    .map(e => serializeElementToString(e));
+    .map(e => serializeElementToString(e)).join('');
 }
 
 /**

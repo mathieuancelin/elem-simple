@@ -2,6 +2,7 @@
 
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : myself', () => {
   it('should provide a way to redraw a particular tag', () => {
@@ -34,6 +35,38 @@ describe('elem-simple : myself', () => {
     div2 = document.querySelector('.secondcomponent');
     expect(div1.innerHTML).to.be.equal('1');
     expect(div2.innerHTML).to.be.equal('600');
+    app.cleanup();
+  });
+  it('should provide a way to redraw a particular tag with same props', () => {
+    let firstValue = 1;
+    let secondValue = 1;
+    const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
+    const SecondComponent = (props) => {
+      return (
+        <div className="secondcomponent" onClick={(e) => {
+          secondValue = 600;
+          firstValue = 1000;
+          props.myself.redraw();
+        }}>{props.value}</div>
+    );
+    };
+    const App = (props) => {
+      return (
+        <div>
+          <FirstComponent value={firstValue} />
+          <SecondComponent value={secondValue} />
+        </div>
+      );
+    };
+    const app = React.render(App, document.getElementById('app'));
+    const div1 = document.querySelector('.firstcomponent');
+    let div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('1');
+    div2.click();
+    div2 = document.querySelector('.secondcomponent');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(div2.innerHTML).to.be.equal('1');
     app.cleanup();
   });
   it('should provide a way to replace a particular tag', () => {

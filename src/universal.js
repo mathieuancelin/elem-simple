@@ -27,6 +27,7 @@ export function serializeElementToString(element) {
         } else {
           node.push(`${dasherize(key)}="${value}"`);
         }
+      /* istanbul ignore else */
       } else if (key === 'attributes' && value.innerHTML) { // if innerHTML is specified, att it directly
         children.push(value.innerHTML);
       }
@@ -37,6 +38,7 @@ export function serializeElementToString(element) {
       if (child && isFunction(child)) {
         child = child();
       }
+      /* istanbul ignore else */
       if (child || child === 0) {
         let childNode;
         if (child.__type) {

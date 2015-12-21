@@ -3,6 +3,7 @@
 import * as React from '../src/index';
 import { isFunction } from '../src/utils';
 import chai, { expect } from 'chai';
+import { describe, it } from 'mocha';
 
 describe('elem-simple : components', () => {
   it('should be able to wrap other components easily', () => {

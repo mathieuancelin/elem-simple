@@ -3,6 +3,7 @@
 import * as React from '../src/index';
 import chai, { expect } from 'chai';
 import { bootstrapEnv } from './bootstrap';
+import { describe, it } from 'mocha';
 
 bootstrapEnv('<div id="app"></div>');
 

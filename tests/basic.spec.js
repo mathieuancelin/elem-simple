@@ -84,8 +84,8 @@ describe('elem-simple', () => {
     expect(notworking).to.throw('This should not pass :-(');
   });
   it('should provide nice utils', () => {
-    escape('<div />');
-    escape();
+    expect(escape('<div />')).to.be.equal('&lt;div /&gt;');
+    expect(escape()).to.be.equal('');
     sid();
   });
 });

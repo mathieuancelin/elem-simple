@@ -1,17 +1,16 @@
-/* eslint no-unused-vars:0, space-before-function-paren: 0, func-names: 0, no-console: 0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
+/* eslint no-console: 0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
 import { bootstrapEnv } from './bootstrap';
 import { describe, it } from 'mocha';
 
 bootstrapEnv('<div id="app"></div>');
 
-describe('elem-simple : perfs', function() {
+describe('elem-simple : perfs', function description() {
   this.timeout(15000);
   it('running perfs test', (done) => {
     const Hello = ({ who }) => <h1>Hello ${who}</h1>;
-    const App = (props) => {
+    const App = () => {
       return (
         <div id="hello"
           dataTruc="machin"

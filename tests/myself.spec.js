@@ -1,7 +1,7 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
 describe('elem-simple : myself', () => {
@@ -11,14 +11,14 @@ describe('elem-simple : myself', () => {
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
     const SecondComponent = (props) => {
       return (
-        <div className="secondcomponent" onClick={(e) => {
+        <div className="secondcomponent" onClick={() => {
           secondValue = 600;
           firstValue = 1000;
           props.myself.redraw({ value: secondValue });
         }}>{props.value}</div>
     );
     };
-    const App = (props) => {
+    const App = () => {
       return (
         <div>
           <FirstComponent value={firstValue} />
@@ -43,14 +43,14 @@ describe('elem-simple : myself', () => {
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
     const SecondComponent = (props) => {
       return (
-        <div className="secondcomponent" onClick={(e) => {
+        <div className="secondcomponent" onClick={() => {
           secondValue = 600;
           firstValue = 1000;
           props.myself.redraw();
         }}>{props.value}</div>
     );
     };
-    const App = (props) => {
+    const App = () => {
       return (
         <div>
           <FirstComponent value={firstValue} />
@@ -75,14 +75,14 @@ describe('elem-simple : myself', () => {
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
     const SecondComponent = (props) => {
       return (
-        <div className="secondcomponent" onClick={(e) => {
+        <div className="secondcomponent" onClick={() => {
           secondValue = 600;
           firstValue = 1000;
           props.myself.replaceWith(<SecondComponent value={secondValue} />);
         }}>{props.value}</div>
       );
     };
-    const App = (props) => {
+    const App = () => {
       return (
         <div>
           <FirstComponent value={firstValue} />

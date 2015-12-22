@@ -1,8 +1,8 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
 import * as React from '../src/index';
 import { isFunction } from '../src/utils';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
 describe('elem-simple : components', () => {
@@ -17,7 +17,7 @@ describe('elem-simple : components', () => {
         return null;
       }
     };
-    const App = (props) => {
+    const App = () => {
       return (
         <ul>
           <Conditional condition={true}><Item value="Item 1" /></Conditional>
@@ -47,7 +47,7 @@ describe('elem-simple : components', () => {
     const Item = (props) => <div className={['item', props.commonStyle.name]}>{props.value}</div>;
     const BootstrapItem = provideStyle({ name: 'bootstrap' })(Item);
     const MaterialItem = provideStyle({ name: 'material' })(Item);
-    const App = (props) => {
+    const App = () => {
       return (
         <div>
           <BootstrapItem value="Item 1" />

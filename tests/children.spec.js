@@ -1,14 +1,14 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
 describe('elem-simple : children', () => {
   it('should handle components with children', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
     const Wrapper = (props) => <ul className="wrapper">{props.children}</ul>;
-    const App = (props) => {
+    const App = () => {
       return (
         <Wrapper>
           <Item value="Item 1" />
@@ -41,7 +41,7 @@ describe('elem-simple : children', () => {
     const returnBoolean = () => false;
     const returnNull = () => null;
     const returnUndefined = () => undefined;
-    const App = (props) => {
+    const App = () => {
       return (
         <Wrapper>
           <Item value="Item 1" />
@@ -91,7 +91,7 @@ describe('elem-simple : children', () => {
     const ReturnBoolean = () => false;
     const ReturnNull = () => null;
     const ReturnUndefined = () => undefined;
-    const App = (props) => {
+    const App = () => {
       return (
         <Wrapper>
           <Item value="Item 1" />
@@ -134,7 +134,7 @@ describe('elem-simple : children', () => {
     app.cleanup();
   });
   it('should handle a zero child', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <ul>
           <li>{0}</li>
@@ -147,7 +147,7 @@ describe('elem-simple : children', () => {
     app.cleanup();
   });
   it('should handle a zero child JSX', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <ul>
           <li>0</li>

@@ -1,13 +1,13 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
 describe('elem-simple : functions', () => {
   it('should provide components through pure functions', () => {
     const Item = (props) => <li>Item : {props.name}</li>;
-    const App = (props) => {
+    const App = () => {
       return (
         <div>
           <Item name="John" />
@@ -49,8 +49,8 @@ describe('elem-simple : functions', () => {
   it('should provide a way to redraw the whole element tree', () => {
     let firstValue = 1;
     let secondValue = 1;
-    const FirstComponent = (props) => <div className="firstcomponent">{firstValue}</div>;
-    const SecondComponent = (props) => <div className="secondcomponent" onClick={(e) => {
+    const FirstComponent = () => <div className="firstcomponent">{firstValue}</div>;
+    const SecondComponent = (props) => <div className="secondcomponent" onClick={() => {
       firstValue = 200;
       secondValue = 400;
       props.redraw();
@@ -60,7 +60,7 @@ describe('elem-simple : functions', () => {
         <div>
           <FirstComponent />
           <SecondComponent />
-          <button type="button" onClick={(e) => {
+          <button type="button" onClick={() => {
             firstValue += 1;
             secondValue += 2;
             props.redraw();

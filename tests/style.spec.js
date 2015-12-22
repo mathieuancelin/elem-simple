@@ -1,12 +1,12 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
 describe('elem-simple : style', () => {
   it('should handle style object', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <h1 style={{ color: 'red', backgroundColor: 'black', border: '1px solid blue' }}>Hello World!</h1>
       );
@@ -20,7 +20,7 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle style string', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <h1 style="color:red;background-color:black;border:1px solid blue;">Hello World!</h1>
       );
@@ -34,7 +34,7 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle style function', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <h1 style={{ color: () => 'red' }}>Hello World!</h1>
       );
@@ -46,7 +46,7 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle undefined style', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <h1 style={undefined}>Hello World!</h1>
       );

@@ -1,13 +1,13 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
 import * as React from '../src/index';
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { invariant, escape, sid } from '../src/utils';
 
 describe('elem-simple', () => {
   it('should just work !!!', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <div id="hello" dataTruc="machin" className={['btn', 'btn-primary']} style={{ color: 'red', backgroundColor: 'white' }}>Hello World!</div>
       );
@@ -24,7 +24,7 @@ describe('elem-simple', () => {
   });
   it('should play nice with predicates', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
-    const App = (props) => {
+    const App = () => {
       return (
         <ul>
           {React.predicate(true, <Item value="Item 1" />)}
@@ -51,7 +51,7 @@ describe('elem-simple', () => {
     app.cleanup();
   });
   it('should handle null or undefined nodes', () => {
-    const App = (props) => {
+    const App = () => {
       return (
         <ul>
           <li className="item">Item 1</li>

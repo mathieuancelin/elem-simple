@@ -10,13 +10,13 @@
     "lint": "eslint src tests",
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register tests/index.js",
     "test:watch": "npm test -- --watch",
-    "test:cov": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --compilers js:babel-core/register tests/index.js",
+    "test:cov": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover --report text --report html $(npm bin)/_mocha -- --compilers js:babel-core/register tests/index.js",
     "perfs": "NODE_ENV=test mocha --compilers js:babel-core/register tests/perfs.spec.js",
     "start": "NODE_ENV=dev webpack-dev-server -d --colors --hot --inline --progress",
     "bundle": "rm -rf ./dist && NODE_ENV=production webpack -p --colors --progress",
     "lib": "rm -rf ./lib && babel src --out-dir lib",
-    "build": "npm run test && npm run lint && npm run lib && npm run bundle && npm run compress && npm run lines && ls -ahl ./dist",
-    "build:travis": "npm run test && npm run lint && npm run lib && npm run bundle"
+    "build": "npm run test && npm run test:cov && npm run lint && npm run lib && npm run bundle && npm run compress && npm run lines && ls -ahl ./dist",
+    "build:travis": "npm run test && npm run test:cov && npm run lint && npm run lib && npm run bundle"
   },
   "author": "Mathieu ANCELIN",
   "license": "MIT",

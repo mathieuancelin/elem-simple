@@ -25,7 +25,8 @@ describe('elem-simple : attributes', () => {
   });
   it('should handle indeterminate on input directly on the element', () => {
     const app = React.render(<input type="checkbox" indeterminate={true} />, document.getElementById('app'));
-    const input = document.getElementsByTagName('input')[0];
+    app.redraw();
+    const input = app.getNode(); // document.getElementsByTagName('input')[0];
     expect(input.indeterminate).to.be.true;
     app.cleanup();
   });

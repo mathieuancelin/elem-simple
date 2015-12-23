@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "Simplest version of elemjs",
   "main": "lib/index.js",
-  "jsnext:main": "lib/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "compress": "gzip --best -c ./dist/elem.js > ./dist/elem.gzip",
     "lines": "cloc src",
-    "lint": "eslint src tests",
-    "test": "NODE_ENV=test mocha --compilers js:babel-core/register tests/index.js",
+    "lint": "eslint src test",
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register test/index.js",
     "test:watch": "npm test -- --watch",
-    "test:covtext": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover --report text $(npm bin)/_mocha -- --compilers js:babel-core/register tests/index.js",
-    "test:cov": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover --report html $(npm bin)/_mocha -- --compilers js:babel-core/register tests/index.js",
-    "perfs": "NODE_ENV=test mocha --compilers js:babel-core/register tests/perfs.spec.js",
+    "test:covtext": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover --report text $(npm bin)/_mocha -- --compilers js:babel-core/register test/index.js",
+    "test:cov": "rm -rf ./coverage && NODE_ENV=test babel-node $(npm bin)/isparta cover --report html $(npm bin)/_mocha -- --compilers js:babel-core/register test/index.js",
+    "perfs": "NODE_ENV=test mocha --compilers js:babel-core/register test/perfs.spec.js",
     "start": "NODE_ENV=dev webpack-dev-server -d --colors --hot --inline --progress",
     "bundle": "rm -rf ./dist && NODE_ENV=production webpack -p --colors --progress",
     "lib": "rm -rf ./lib && babel src --out-dir lib",
@@ -21,11 +21,29 @@
   },
   "author": "Mathieu ANCELIN",
   "license": "MIT",
+  "homepage": "https://github.com/mathieuancelin/elem-simple",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mathieuancelin/elem-simple.git"
+  },
+  "keywords": [
+    "DOM",
+    "UI",
+    "JSX",
+    "Components",
+    "Stateless Components"
+  ],
+  "authors": [
+    "Mathieu ANCELIN (https://github.com/mathieuancelin)"
+  ],
+  "bugs": {
+    "url": "https://github.com/mathieuancelin/elem-simple"
+  },
   "dependencies": {},
   "devDependencies": {
-    "babel": "^6.3.13",
+    "babel": "^6.3.26",
     "babel-cli": "^6.3.17",
-    "babel-core": "^6.3.21",
+    "babel-core": "^6.3.26",
     "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",

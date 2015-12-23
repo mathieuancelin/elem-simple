@@ -5,30 +5,30 @@ import { serializeElementToDOM } from './dom';
  *
  * @param el the VDOM element
  * @param ctx the current context of the tree
- * @param document the document on which the function will be rendered
+ * @param doc the DOM document on which the function will be rendered
  */
-export function renderFunction(el, ctx, document) {
+export function renderFunction(el, ctx, doc) {
   // compose the query selector to find the root node returned by the functional element
   const selector = '[data-fid="' + el.nodeId + '"]';
   // the function to retrive the actual node from the DOM
-  const getNode = () => document.querySelector(selector);
+  const getNode = () => doc.querySelector(selector);
   // the `myself`
   const myself = {
     id: el.nodeId,
     selector, getNode,
     redraw(props) {
       // render the current function again, with new props this time
-      const elements = renderFunction({ ...el, props: props || el.props }, ctx, document);
+      const elements = renderFunction({ ...el, props: props || el.props }, ctx, doc);
       const oldNode = getNode();
       // render the new sub tree as actual DOM node
-      const newNode = serializeElementToDOM(document, elements, ctx);
+      const newNode = serializeElementToDOM(doc, elements, ctx);
       // replace the old tree by the new tree
       oldNode.parentNode.replaceChild(newNode, oldNode);
     },
     replaceWith(element) {
       const oldNode = getNode();
       // render the new sub tree as actual DOM node
-      const newNode = serializeElementToDOM(document, element, ctx);
+      const newNode = serializeElementToDOM(doc, element, ctx);
       // replace the old tree by the new tree
       oldNode.parentNode.replaceChild(newNode, oldNode);
     },

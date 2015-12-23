@@ -8,17 +8,17 @@ import { serializeClass } from './class';
  * Serialize an element tree into a DOM node tree. Attach event handlers,
  * direct attributes and traverse children of each node.
  *
- * @param document, the current document to create DOM node
+ * @param doc, the current DOM document to create DOM node
  * @param element, the element to render
  * @param ctx, the tree context
  */
-export function serializeElementToDOM(document, element, ctx) {
+export function serializeElementToDOM(doc, element, ctx) {
   // if it's an HTML element
   if (element.__type === 'simple-node') {
     // create the DOM node with it's namespace
     const node = element.namespace ?
-      document.createElementNS(element.namespace, element.name) :
-      document.createElement(element.name);
+      doc.createElementNS(element.namespace, element.name) :
+      doc.createElement(element.name);
     // for each property, add it to the node attributes
     for (const key in element.props) { // LOOP
       const value = element.props[key];
@@ -53,10 +53,10 @@ export function serializeElementToDOM(document, element, ctx) {
         let childNode;
         if (child.__type) {
           // recursive call if a children is an element
-          childNode = serializeElementToDOM(document, child, ctx);
+          childNode = serializeElementToDOM(doc, child, ctx);
         } else {
           // if it's a leaf, create a text node
-          childNode = document.createTextNode(String(child));
+          childNode = doc.createTextNode(String(child));
         }
         if (childNode) {
           // append child to the paren node
@@ -72,10 +72,10 @@ export function serializeElementToDOM(document, element, ctx) {
     return node;
   } else if (element.__type === 'function-node') {
     // if it's a functional element, call the function
-    const funcElement = renderFunction(element, ctx, document);
+    const funcElement = renderFunction(element, ctx, doc);
     if (!funcElement) return null;
     // render it as actual DOM node
-    const funcNode = serializeElementToDOM(document, funcElement, ctx);
+    const funcNode = serializeElementToDOM(doc, funcElement, ctx);
     if (!funcNode) return null;
     // set the attribute to be able to locate the first DOM node of the subtree to allow replacement and redraw
     funcNode.setAttribute('data-fid', element.nodeId);

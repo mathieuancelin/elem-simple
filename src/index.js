@@ -30,10 +30,13 @@ export function renderToString(func) {
  */
 export function render(func, node, append = false) {
   // check the type of stuff to render and the place where you want to render it
+  invariant(window.document, 'It seems it\'s not a browser environment here :(, you can\'t call `render`');
   invariant(isFunction(func) || isArray(func) || func.__type, 'You have to provide a function or an element to `render`');
   invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
-  const nodeId = sid('root-');
   if (!isFunction(func)) return render(() => func, node);
+  const nodeId = sid('root-');
+  // the current DOM document
+  const doc = window.document;
   // create the tree context
   const ctx = { context: {} };
   // create the function to be able to redraw the tree
@@ -44,7 +47,7 @@ export function render(func, node, append = false) {
     // if not in append mode, clear the root node
     tree.forEach(item => {
       // render the sub tree as actual DOM node
-      const domNode = serializeElementToDOM(window.document, item, ctx);
+      const domNode = serializeElementToDOM(doc, item, ctx);
       domNode.setAttribute('data-root', nodeId);
       if (!cleared && !append) {
         clearNode(node);
@@ -58,7 +61,7 @@ export function render(func, node, append = false) {
   ctx.redraw();
   return {
     // return the first DOM node of the component
-    getNode: () => document.querySelector(`[data-root="${nodeId}"]`),
+    getNode: () => doc.querySelector(`[data-root="${nodeId}"]`),
     // trigger a redraw
     redraw: ctx.redraw,
     // cleanup everything

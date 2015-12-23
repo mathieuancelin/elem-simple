@@ -39,14 +39,7 @@ export function invariant(condition, message, ...args) {
   }
 }
 
-const escapeMap = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#x27;',
-  '`': '&#x60;',
-};
+const escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '`': '&#x60;' };
 const source = `(?:${Object.keys(escapeMap).join('|')})`;
 const testRegexp = RegExp(source);
 const replaceRegexp = RegExp(source, 'g');
@@ -69,7 +62,8 @@ export function escape(value = '') {
 /**
  * check if value is an array
  */
-export const isArray = Array.isArray;
+  /* istanbul ignore next */
+export const isArray = Array.isArray || ((obj) => Object.prototype.toString.call(obj) === '[object Array]');
 
 /**
  * change any object to an array
@@ -84,7 +78,8 @@ export const isUndefined = (x) => x === undefined;
 /**
  * check if an array caontains a value
  */
-export const includes = (array, what) => array.indexOf(what) > -1;
+  /* istanbul ignore next */
+export const includes = Array.includes || ((array, what) => array.indexOf(what) > -1);
 
 /**
  * check if value is a function

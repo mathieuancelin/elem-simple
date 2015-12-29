@@ -69,6 +69,11 @@ export function render(func, node, append = false) {
   };
 }
 
+export function Component(props) {
+  invariant(this.render, 'Component instances must have a render method.');
+  this.props = props;
+}
+
 /**
  * JSX factory function to create DOM VNode. Designed to be used with a JX
  * transpiler.
@@ -80,6 +85,9 @@ export function createElement(name, props, ...children) {
   // check if name is a function or a string
   invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as name');
   const nodeId = sid('node-');
+  if (name.prototype && name.prototype instanceof Component) {
+    return createElement((p) => new name(p).render(), props, ...children); // eslint-disable-line
+  }
   // create the element instance according to name type
   if (isFunction(name)) {
     return {

@@ -54,7 +54,7 @@
     "eslint-config-airbnb": "^2.1.1",
     "eslint-plugin-react": "^3.13.1",
     "isparta": "^4.0.0",
-    "jsdom": "^7.2.1",
+    "jsdom": "^7.2.2",
     "mocha": "^2.3.4",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

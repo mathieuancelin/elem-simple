@@ -68,4 +68,67 @@ describe('elem-simple : components', () => {
     expect(materialDivs[1].innerHTML).to.be.equal('Item 4');
     app.cleanup();
   });
+  it('should be able to use Component classes', () => {
+    class JessePinkman extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      render() {
+        return <h1>Yo {this.props.message}!</h1>;
+      }
+    }
+    const app = React.render(<JessePinkman message="Bitch" />, document.getElementById('app'));
+    const h1 = document.querySelector('h1');
+    expect(h1.innerHTML).to.be.equal('Yo Bitch!');
+    app.cleanup();
+  });
+  it('should be able to use Component classes without constructors', () => {
+    class JessePinkman extends React.Component {
+      render() {
+        return <h1>Yo {this.props.message}!</h1>;
+      }
+    }
+    const app = React.render(<JessePinkman message="Bitch" />, document.getElementById('app'));
+    const h1 = document.querySelector('h1');
+    expect(h1.innerHTML).to.be.equal('Yo Bitch!');
+    app.cleanup();
+  });
+  it('should be able to use Component classes with event handlers', () => {
+    let value = 'nothing';
+    class Cliker extends React.Component {
+      render() {
+        return (
+          <div>
+            <button type="button" onClick={() => value = 'clicked'}>Click me</button>
+          </div>
+        );
+      }
+    }
+    const app = React.render(<Cliker />, document.getElementById('app'));
+    const button = document.querySelector('button');
+    button.click();
+    expect(value).to.be.equal('clicked');
+    app.cleanup();
+  });
+  it('should be able to use Component classes with event handlers on the class', () => {
+    let value = 'nothing';
+    class Cliker extends React.Component {
+      click(e) {
+        e.preventDefault();
+        value = this.props.value;
+      }
+      render() {
+        return (
+          <div>
+            <button type="button" onClick={this.click.bind(this)}>Click me</button>
+          </div>
+        );
+      }
+    }
+    const app = React.render(<Cliker value="clicked2" />, document.getElementById('app'));
+    const button = document.querySelector('button');
+    button.click();
+    expect(value).to.be.equal('clicked2');
+    app.cleanup();
+  });
 });

@@ -94,6 +94,23 @@ const App = (props) => <ul>{props.who.map(item => <Item name={item} />)}</ul>;
 Elem.render(<App who={['Mathieu', 'Quentin']} />, document.getElementById('app'));
 ```
 
+### Classes as tags or stateless components
+
+```javascript
+import Elem from 'elem-simple';
+
+class App extends Elem.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <h1>Hello {this.props.who}!</h1>;
+  }
+}
+
+Elem.render(<App who="Mathieu" />, document.getElementById('app'));
+```
+
 ### Properties
 
 Whenever you use a function as a JSX tag, a `props` object is passed along. In this `props` object you will find any parameters passed to the JSX node and the following properties :
@@ -212,6 +229,7 @@ const Component = (props) => {
     * a simple string
     * an object that will be serialized to a style value
   * if you define the property `ref` on a DOM element as a function, this function will be called with the actual DOM node created by `Elem` as the first parameter of the function
+* reusable components are also done via classes that extends `Elem.Component` with a `render` method. `props` are available through `this`.
 * `Elem.render` can render pure elements or a function that returns elements
 * `Elem.render` takes an `HTMLElement` as second parameter
 * `Elem.render` can take a third parameter to specify if the element tree will be appended to the root node of if the content of the root node will be deleted. By default, it's deleted

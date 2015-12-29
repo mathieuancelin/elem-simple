@@ -83,11 +83,11 @@ export function Component(props) {
  */
 export function createElement(name, props, ...children) {
   // check if name is a function or a string
-  invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as name');
-  const nodeId = sid('node-');
+  invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as first argument');
   if (name.prototype && name.prototype instanceof Component) {
     return createElement((p) => new name(p).render(), props, ...children); // eslint-disable-line
   }
+  const nodeId = sid('node-');
   // create the element instance according to name type
   if (isFunction(name)) {
     return {

@@ -69,14 +69,16 @@ export function render(func, node, append = false) {
   };
 }
 
+/**
+ * A factory function to provide ES6 classes support
+ */
 export function Component(props) {
   invariant(this.render, 'Component instances must have a render method.');
   this.props = props;
 }
 
 /**
- * JSX factory function to create DOM VNode. Designed to be used with a JX
- * transpiler.
+ * JSX factory function to create DOM VNode. Designed to be used with a JSX transpiler.
  * @param name : the name of the tag, or a function that return DOM VNode. Not optional
  * @param props : properties of the node, a plain old JS object. Not optional, if no value, put null
  * @param children : the children of the node, a vararg
@@ -84,8 +86,9 @@ export function Component(props) {
 export function createElement(name, props, ...children) {
   // check if name is a function or a string
   invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as first argument');
+  // check if it's a Component sub-class
   if (name.prototype && name.prototype instanceof Component) {
-    return createElement((p) => new name(p).render(), props, ...children); // eslint-disable-line
+    return createElement((p) => new name(p).render(p), props, ...children); // eslint-disable-line
   }
   const nodeId = sid('node-');
   // create the element instance according to name type

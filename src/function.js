@@ -9,7 +9,7 @@ import { serializeElementToDOM } from './dom';
  */
 export function renderFunction(el, ctx, doc) {
   // compose the query selector to find the root node returned by the functional element
-  const selector = '[data-fid="' + el.nodeId + '"]';
+  const selector = `[data-fid="${el.nodeId}"]`;
   // the function to retrive the actual node from the DOM
   const getNode = () => doc.querySelector(selector);
   // the `myself`

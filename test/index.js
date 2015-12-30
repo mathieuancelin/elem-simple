@@ -14,6 +14,7 @@ const tests = [
   require('./function.spec.js'),
   require('./myself.spec.js'),
   require('./ref.spec.js'),
+  require('./state.spec.js'),
   require('./style.spec.js'),
   require('./svg.spec.js'),
   require('./universal.spec.js'),

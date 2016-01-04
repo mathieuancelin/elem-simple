@@ -75,7 +75,8 @@ export function render(func, node, append = false) {
 export function Component(props) {
   invariant(this.render, 'Component instances must have a render method.');
   this.getDefaultProps = this.getDefaultProps || (() => ({}));
-  this.props = props.$$ipn ? { ...props, ...this.getDefaultProps(), $$ipn: undefined } : props;
+  this.props = props.$$ipn ? { ...props, ...this.getDefaultProps() } : props;
+  delete this.props.$$ipn;
 }
 
 /**

@@ -131,4 +131,30 @@ describe('elem-simple : components', () => {
     expect(value).to.be.equal('clicked2');
     app.cleanup();
   });
+  it('should be able to use Component classes with default props', () => {
+    let value = 'nothing';
+    class Cliker extends React.Component {
+      getDefaultProps() {
+        return {
+          value: 'default value',
+        };
+      }
+      click(e) {
+        e.preventDefault();
+        value = this.props.value;
+      }
+      render() {
+        return (
+          <div>
+            <button type="button" onClick={this.click.bind(this)}>Click me</button>
+          </div>
+        );
+      }
+    }
+    const app = React.render(<Cliker />, document.getElementById('app'));
+    const button = document.querySelector('button');
+    button.click();
+    expect(value).to.be.equal('default value');
+    app.cleanup();
+  });
 });

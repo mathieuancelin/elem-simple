@@ -12,25 +12,21 @@ export function renderFunction(el, ctx, doc) {
   const selector = `[data-fid="${el.nodeId}"]`;
   // the function to retrive the actual node from the DOM
   const getNode = () => doc.querySelector(selector);
+  const replaceWith = (element, $id) => {
+    const oldNode = getNode();
+    // render the new sub tree as actual DOM node
+    const newNode = serializeElementToDOM(doc, element, ctx);
+    if ($id) newNode.setAttribute('data-fid', $id);
+    // replace the old tree by the new tree
+    oldNode.parentNode.replaceChild(newNode, oldNode);
+  };
   // the `myself`
   const myself = {
-    id: el.nodeId,
-    selector, getNode,
+    id: el.nodeId, selector, getNode, replaceWith,
     redraw(props) {
-      // render the current function again, with new props this time
-      const elements = renderFunction({ ...el, props: props || el.props }, ctx, doc);
-      const oldNode = getNode();
-      // render the new sub tree as actual DOM node
-      const newNode = serializeElementToDOM(doc, elements, ctx);
-      // replace the old tree by the new tree
-      oldNode.parentNode.replaceChild(newNode, oldNode);
-    },
-    replaceWith(element) {
-      const oldNode = getNode();
-      // render the new sub tree as actual DOM node
-      const newNode = serializeElementToDOM(doc, element, ctx);
-      // replace the old tree by the new tree
-      oldNode.parentNode.replaceChild(newNode, oldNode);
+      const newProps = { ...el.props, ...props };
+      // render the current function again, with new props this time and replace the old tree with it
+      replaceWith(renderFunction({ ...el, props: newProps }, ctx, doc), el.nodeId);
     },
   };
   // class the function that returns the element tree

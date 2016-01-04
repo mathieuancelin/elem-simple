@@ -74,7 +74,8 @@ export function render(func, node, append = false) {
  */
 export function Component(props) {
   invariant(this.render, 'Component instances must have a render method.');
-  this.props = props;
+  this.getDefaultProps = this.getDefaultProps || (() => ({}));
+  this.props = props.$$ipn ? { ...props, ...this.getDefaultProps(), $$ipn: undefined } : props;
 }
 
 /**
@@ -88,7 +89,7 @@ export function createElement(name, props, ...children) {
   invariant(isFunction(name) || isString(name), 'You have to provide a function or a string as first argument');
   // check if it's a Component sub-class
   if (name.prototype && name.prototype instanceof Component) {
-    return createElement((p) => new name(p).render(p), props, ...children); // eslint-disable-line
+    return createElement((p) => new name(p).render(p), props ? props : { $$ipn: true }, ...children); // eslint-disable-line
   }
   const nodeId = sid('node-');
   // create the element instance according to name type

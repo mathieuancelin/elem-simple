@@ -1,14 +1,15 @@
-/* eslint react/no-multi-comp: 0 react/prop-types: 0 */
+/* eslint react/no-multi-comp: 0 react/prop-types: 0, no-console: 0 */
 
-import { render, createElement, renderToString } from '../src/index';
+import { render, createElement, renderToString, Component } from '../src/index';
 
-const React = { createElement };
+const React = { createElement, Component };
 
 const Time = (props) => {
   return (
     <div>
       <span ref={(n) => console.log(n)}>Time {props.separator} {Date.now()}</span>
       <button type="button" onClick={() => props.myself.replaceWith(<Time separator={props.separator} />)}>update</button>
+      <button type="button" onClick={() => props.myself.redraw()}>redraw</button>
       <button type="button" onClick={() => props.redraw()}>redraw</button>
     </div>
   );
@@ -25,6 +26,33 @@ const Dummy = (props) => {
 
 const Wrapper = (props) => <div style={{ border: '1px solid black' }}>{props.children}</div>;
 
+class ComponentWithState extends React.Component {
+  constructor(props) {
+    super(props);
+    const copy = { ...this.props };
+    this.state = copy.$$state || this.getInitialState();
+    delete copy.$$state;
+    this.props = copy;
+    this.replaceState = (ns) => props.myself.redraw({ ...copy, $$state: ns });
+    this.setState = (ns) => this.replaceState({ ...this.state, ...ns });
+  }
+}
+
+class Clicker extends ComponentWithState {
+  getInitialState() {
+    return {
+      counter: 1,
+    };
+  }
+  render() {
+    return (
+      <h1 id="h1" onClick={() => this.setState({ counter: this.state.counter + 1 })}>
+        You have clicked {this.state.counter} times
+      </h1>
+    );
+  }
+}
+
 const App = () => {
   return (
     <Wrapper>
@@ -35,6 +63,7 @@ const App = () => {
       <div className="yo" id="hello2">Hello World!</div>
       <br />
       <Dummy separator="/" />
+      <Clicker />
     </Wrapper>
   );
 };

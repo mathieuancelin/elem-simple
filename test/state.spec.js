@@ -6,9 +6,6 @@ import { describe, it } from 'mocha';
 import LeafComponentWithState from '../tools/state';
 
 class Clicker extends LeafComponentWithState {
-  constructor(props) {
-    super(props);
-  }
   getInitialState() {
     return {
       counter: 1,

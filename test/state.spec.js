@@ -3,9 +3,9 @@
 import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import ComponentWithState from '../tools/state';
+import LeafComponentWithState from '../tools/state';
 
-class Clicker extends ComponentWithState {
+class Clicker extends LeafComponentWithState {
   constructor(props) {
     super(props);
   }
@@ -26,8 +26,8 @@ class Clicker extends ComponentWithState {
   }
 }
 
-describe('elem-simple : state test', () => {
-  it('should be able to provide simple positional states', () => {
+describe('elem-simple : leaf component state utils', () => {
+  it('should be able to provide state for a leaf component', () => {
     const app = React.render(<Clicker/>, document.getElementById('app'));
     let h1 = document.getElementById('h1');
     expect(h1.innerHTML).to.be.equal('You have clicked 1 times');

@@ -6,7 +6,7 @@ import { describe, it } from 'mocha';
 
 describe('elem-simple : refs', () => {
   it('should provide a way to get actual DOM node references', () => {
-    const app = React.render(<input value="textvalue" ref={(n) => n.value = 'set value'} />, document.getElementById('app'));
+    const app = React.render(<input value="textvalue" ref={(n) => n.value = 'set value'} />, document.getElementById('app')); // eslint-disable-line
     const input = document.getElementsByTagName('input')[0];
     expect(input.value).to.be.equal('set value');
     app.cleanup();

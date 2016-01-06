@@ -1,3 +1,5 @@
+/* eslint max-len: 0 */
+
 import { includes, dasherize } from './utils';
 
 // possible SVG elements

@@ -53,7 +53,7 @@ export class StoreProvider extends React.Component {
   constructor(props) {
     invariant(props.store && isObject(props.store), 'You must provide a valid store as StoreProvider props');
     super(props);
-    props.treeContext.__providedStore = props.store;
+    props.treeContext.__providedStore = props.store; // eslint-disable-line
   }
   render() {
     return (

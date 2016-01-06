@@ -37,7 +37,8 @@ describe('elem-simple : universal', () => {
   it('should provide universal rendering that allow some input stuff', () => {
     const App = () => <h1 className="title" dataColor="red"><input type="checkbox" indeterminate={true} /><input type="text" value="Mathieu" /></h1>;
     const app = React.renderToString(App);
-    expect(app).to.be.equal('<h1 class="title" data-color="red"><input type="checkbox" indeterminate="true"></input><input type="text" value="Mathieu"></input></h1>');
+    expect(app).to.be.equal(
+      '<h1 class="title" data-color="red"><input type="checkbox" indeterminate="true"></input><input type="text" value="Mathieu"></input></h1>');
   });
   it('should provide universal rendering that allow sub components', () => {
     const Component = (props) => {

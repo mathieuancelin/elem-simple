@@ -19,7 +19,7 @@ export class ContextProvider extends React.Component {
     invariant(props.context && isObject(props.context), 'You must provide a valid context as ContextProvider props');
     super(props);
     const parentContext = props.treeContext.__providedContext || {};
-    props.treeContext.__providedContext = {
+    props.treeContext.__providedContext = { // eslint-disable-line
       ...props.context,
       ...parentContext,
     };

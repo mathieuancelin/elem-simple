@@ -25,14 +25,16 @@ export function Store(initialState = emptyObject) {
     return { ...currentState };
   }
 
-  function setState(diff) {
+  function setState(diff, cb = emptyObject) {
     currentState = { ...currentState, ...diff };
     dispatch();
+    cb();
   }
 
-  function replaceState(ns) {
+  function replaceState(ns, cb = emptyObject) {
     currentState = ns;
     dispatch();
+    cb();
   }
 
   return {
@@ -55,7 +57,7 @@ export class StoreProvider extends React.Component {
   }
 }
 
-export function enhanceWithStore(mapper) {
+export function enhanceWithStore(mapper = emptyObject) {
   return (Component) => {
     return (props) => {
       const store = props.treeContext.__providedStore;
@@ -64,15 +66,9 @@ export function enhanceWithStore(mapper) {
         ctx.subscription();
         props.myself.redraw();
       });
-      if (mapper) {
-        return (
-          <Component { ...props } store={store} { ...mapper(store) } />
-        );
-      } else {
-        return (
-          <Component { ...props } store={store} />
-        );
-      }
+      return (
+        <Component { ...props } store={store} { ...mapper(store) } />
+      );
     };
   };
 }

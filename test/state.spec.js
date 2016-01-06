@@ -3,7 +3,7 @@
 import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { LeafComponentWithState } from '../tools/state';
+import { LeafComponentWithState } from '../tools';
 
 class Clicker extends LeafComponentWithState {
   getInitialState() {

@@ -2,7 +2,7 @@ import * as Elem from '../src/index';
 
 const noop = () => ({});
 
-export default class LeafComponentWithState extends Elem.Component {
+export class LeafComponentWithState extends Elem.Component {
   constructor(props) {
     super(props);
     const copy = { ...this.props };

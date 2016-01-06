@@ -1,7 +1,7 @@
 /* eslint react/no-multi-comp: 0 react/prop-types: 0, no-console: 0 */
 
 import { render, createElement, renderToString, Component } from '../src/index';
-import LeafComponentWithState from '../tools/state';
+import { LeafComponentWithState } from '../tools/state';
 
 const React = { createElement, Component };
 

@@ -1,8 +1,9 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0  */
-import React from '../src/index';
+import * as React from '../src/index';
+import { invariant, isObject } from '../src/utils';
 
 // creates an higher order component that can map parts of the context on subcomponent props
-export default function enhance(mapper = a => a) {
+export function enhanceWithPropsFromContext(mapper = a => a) {
   return (Component) => {
     return (props) => {
       return (
@@ -13,12 +14,15 @@ export default function enhance(mapper = a => a) {
 }
 
 // wrapper components and provide a context
-export default class Provider extends React.Component {
+export class ContextProvider extends React.Component {
   constructor(props) {
+    invariant(props.context && isObject(props.context), 'You must provide a valid context as ContextProvider props');
     super(props);
-    if (!props.treeContext.__providedContext) {
-      props.treeContext.__providedContext = props.context;
-    }
+    const parentContext = props.treeContext.__providedContext || {};
+    props.treeContext.__providedContext = {
+      ...props.context,
+      ...parentContext,
+    };
   }
   render() {
     return this.props.children;

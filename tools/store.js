@@ -55,6 +55,13 @@ export class StoreProvider extends React.Component {
     super(props);
     props.treeContext.__providedStore = props.store;
   }
+  render() {
+    return (
+      <span className="store-provided">
+        {this.props.children}
+      </span>
+    );
+  }
 }
 
 export function enhanceWithStore(mapper = emptyObject) {
@@ -67,7 +74,9 @@ export function enhanceWithStore(mapper = emptyObject) {
         props.myself.redraw();
       });
       return (
-        <Component { ...props } store={store} { ...mapper(store) } />
+        <span className="store-enhanced">
+          <Component { ...props } store={store} { ...mapper(store) } />
+        </span>
       );
     };
   };

@@ -17,6 +17,7 @@ export function enhanceWithPropsFromContext(mapper = a => a) {
 export class ContextProvider extends React.Component {
   constructor(props) {
     invariant(props.context && isObject(props.context), 'You must provide a valid context as ContextProvider props');
+    invariant(props.children && props.children.length === 1, 'Only one child is allowed inside ContextProvider');
     super(props);
     const parentContext = props.treeContext.__providedContext || {};
     props.treeContext.__providedContext = { // eslint-disable-line

@@ -1,6 +1,7 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0  */
 
 import * as React from '../src/index';
+import { invariant } from '../src/utils';
 
 function isObject(χ) {
   return !!χ && (typeof χ === 'object' || typeof χ === 'function');
@@ -15,6 +16,10 @@ function isTruthy(expression) {
 }
 
 export class Conditional extends React.Component {
+  constructor(props) {
+    invariant(props.children && props.children.length === 1, 'Only one child is allowed inside Conditional');
+    super(props);
+  }
   getDefaultProps() {
     return {
       condition: true,
@@ -27,7 +32,7 @@ export class Conditional extends React.Component {
       condition = condition();
     }
     if (isTruthy(condition)) {
-      return this.props.children;
+      return this.props.children[0];
     } else {
       return null;
     }

@@ -49,6 +49,7 @@ export function Store(initialState = emptyObject) {
   };
 }
 
+// TODO : auto update here
 export class StoreProvider extends React.Component {
   constructor(props) {
     invariant(props.store && isObject(props.store), 'You must provide a valid store as StoreProvider props');
@@ -64,6 +65,7 @@ export class StoreProvider extends React.Component {
   }
 }
 
+// TODO : do not update here, just pass props
 export function enhanceWithStore(mapper = emptyObject) {
   return (Component) => {
     return (props) => {

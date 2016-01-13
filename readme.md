@@ -1,6 +1,6 @@
 # elem-simple
 
-Super simple version of `elemjs`, under 300 loc and around 3Kb gzipped, with absolutely no runtime dependencies.
+Super simple version of `elemjs`, under 300 loc and around 3,5Kb gzipped, with absolutely no runtime dependencies.
 
 ```
 npm install --save elem-simple

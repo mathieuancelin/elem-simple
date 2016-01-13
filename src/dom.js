@@ -1,4 +1,4 @@
-import { dasherize, isFunction, invariant, startsWith } from './utils';
+import { dasherize, isFunction, invariant, startsWith, isArray } from './utils';
 import { attachEvents } from './event';
 import { renderFunction } from './function';
 import { serializeStyle } from './style';
@@ -78,7 +78,11 @@ export function serializeElementToDOM(doc, element, ctx) {
     const funcNode = serializeElementToDOM(doc, funcElement, ctx);
     if (!funcNode) return null;
     // set the attribute to be able to locate the first DOM node of the subtree to allow replacement and redraw
-    funcNode.setAttribute('data-fid', element.nodeId);
+    if (!isArray(funcNode)) funcNode.setAttribute('data-fid', element.nodeId);
     return funcNode;
   }
+  // TODO : handle array here !!!
+  /* else {
+    return element.map(i => serializeElementToDOM(doc, i, ctx));
+  } */
 }

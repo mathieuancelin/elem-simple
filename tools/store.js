@@ -49,7 +49,6 @@ export function Store(initialState = emptyObject) {
   };
 }
 
-// TODO : auto update here
 export class StoreProvider extends React.Component {
   constructor(props) {
     invariant(props.store && isObject(props.store), 'You must provide a valid store as StoreProvider props');
@@ -65,7 +64,23 @@ export class StoreProvider extends React.Component {
   }
 }
 
-// TODO : do not update here, just pass props
+export class RootStoreProvider extends React.Component {
+  constructor(props) {
+    invariant(props.store && isObject(props.store), 'You must provide a valid store as StoreProvider props');
+    invariant(props.children && props.children.length === 1, 'Only one child is allowed inside RootStoreProvider');
+    super(props);
+    props.treeContext.__providedStore = props.store; // eslint-disable-line
+    const ctx = {};
+    ctx.subscription = props.store.subscribe(() => {
+      ctx.subscription();
+      props.redraw();
+    });
+  }
+  render() {
+    return this.props.children[0];
+  }
+}
+
 export function enhanceWithStore(mapper = emptyObject) {
   return (Component) => {
     return (props) => {
@@ -79,6 +94,17 @@ export function enhanceWithStore(mapper = emptyObject) {
         <span className="store-enhanced">
           <Component { ...props } store={store} { ...mapper(store) } />
         </span>
+      );
+    };
+  };
+}
+
+export function enhanceWithPropsFromStore(mapper = emptyObject) {
+  return (Component) => {
+    return (props) => {
+      const store = props.treeContext.__providedStore;
+      return (
+        <Component { ...props } store={store} { ...mapper(store) } />
       );
     };
   };

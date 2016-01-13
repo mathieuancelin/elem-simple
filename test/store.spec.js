@@ -3,7 +3,13 @@
 import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { StoreProvider, enhanceWithStore, Store } from '../tools';
+import {
+  StoreProvider,
+  RootStoreProvider,
+  enhanceWithStore,
+  enhanceWithPropsFromStore,
+  Store,
+} from '../tools';
 
 class Clicker extends React.Component {
   constructor(props) {
@@ -23,12 +29,26 @@ class Clicker extends React.Component {
   }
 }
 
-const Eclicker = enhanceWithStore()(Clicker);
 
 describe('elem-simple : store', () => {
   it('should be able to provide global state', () => {
+    const Eclicker = enhanceWithStore()(Clicker);
     const store = new Store({ counter: 1 });
     const app = React.render(<StoreProvider store={store}><Eclicker /></StoreProvider>, document.getElementById('app'));
+    let h1 = document.getElementById('h1');
+    expect(h1.innerHTML).to.be.equal('You have clicked 1 times');
+    h1.click();
+    h1 = document.getElementById('h1');
+    expect(h1.innerHTML).to.be.equal('You have clicked 2 times');
+    h1.click();
+    h1 = document.getElementById('h1');
+    expect(h1.innerHTML).to.be.equal('You have clicked 3 times');
+    app.cleanup();
+  });
+  it('should be able to provide global root state', () => {
+    const Eclicker = enhanceWithPropsFromStore()(Clicker);
+    const store = new Store({ counter: 1 });
+    const app = React.render(<RootStoreProvider store={store}><Eclicker /></RootStoreProvider>, document.getElementById('app'));
     let h1 = document.getElementById('h1');
     expect(h1.innerHTML).to.be.equal('You have clicked 1 times');
     h1.click();

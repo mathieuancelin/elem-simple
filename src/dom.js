@@ -70,6 +70,7 @@ export function serializeElementToDOM(doc, element, ctx) {
       element.props.ref(node);
     }
     return node;
+  /* istanbul ignore next */
   } else if (element.__type === 'function-node') {
     // if it's a functional element, call the function
     const funcElement = renderFunction(element, ctx, doc);

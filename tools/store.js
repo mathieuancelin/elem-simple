@@ -56,11 +56,7 @@ export class StoreProvider extends React.Component {
     props.treeContext.__providedStore = props.store; // eslint-disable-line
   }
   render() {
-    return ( // TODO : return first child
-      <span className="store-provided">
-        {this.props.children}
-      </span>
-    );
+    return this.props.children[0];
   }
 }
 

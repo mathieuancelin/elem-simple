@@ -83,11 +83,11 @@ describe('elem-simple : children', () => {
     expect(children[6].className).to.be.equal('item');
     app.cleanup();
   });
-  it('should handle components with null, undefined, false, and array children as tags', () => {
+  it('should handle components with null, undefined, and false children as tags', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
     const Wrapper = (props) => <ul className="wrapper">{props.children}</ul>;
     const ReturnZero = () => 0;
-    const ReturnArray = () => [];
+    const ReturnArray = () => 0;
     const ReturnBoolean = () => false;
     const ReturnNull = () => null;
     const ReturnUndefined = () => undefined;
@@ -158,6 +158,17 @@ describe('elem-simple : children', () => {
     const li = document.querySelector('li');
     expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
+  });
+  it('should not be able to render an array from component', () => {
+    const Arr = () => [];
+    const App = () => <div><Arr /></div>;
+    let err = false;
+    try {
+      React.render(App, document.getElementById('app'));
+    } catch (e) {
+      err = true;
+    }
+    expect(err).to.be.equal(true);
   });
   it('should be able to render an array', () => {
     const App = [

@@ -34,7 +34,11 @@ describe('elem-simple : store', () => {
   it('should be able to provide global state', () => {
     const Eclicker = enhanceWithStore()(Clicker);
     const store = new Store({ counter: 1 });
-    const app = React.render(<StoreProvider store={store}><Eclicker /></StoreProvider>, document.getElementById('app'));
+    const app = React.render(<StoreProvider store={store}>
+      <div>
+        <Eclicker />
+      </div>
+    </StoreProvider>, document.getElementById('app'));
     let h1 = document.getElementById('h1');
     expect(h1.innerHTML).to.be.equal('You have clicked 1 times');
     h1.click();

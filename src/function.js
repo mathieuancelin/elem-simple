@@ -1,4 +1,5 @@
 import { serializeElementToDOM } from './dom';
+import { invariant, isArray } from './utils';
 
 /**
  * Call a functional element with the corresponding context and return the element tree.
@@ -30,5 +31,7 @@ export function renderFunction(el, ctx, doc) {
     },
   };
   // class the function that returns the element tree
-  return el.render({ ...el.props, children: el.children, redraw: ctx.redraw, myself, treeContext: ctx.context });
+  const tree = el.render({ ...el.props, children: el.children, redraw: ctx.redraw, myself, treeContext: ctx.context });
+  invariant(!isArray(tree), 'A functional component cannot return an array ');
+  return tree;
 }

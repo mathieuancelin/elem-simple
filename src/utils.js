@@ -6,7 +6,7 @@ let counter = 0;
  * return a new sequential ID with a prefix
  */
 export function sid(prefix) {
-  const id = ++counter + '';
+  const id = `${++counter}`;
   return prefix ? prefix + id : id;
 }
 
@@ -32,7 +32,7 @@ export function dasherize(what) {
 export function invariant(condition, message, ...args) {
   if (!condition) {
     let argIndex = 0;
-    const error = new Error(`${message.replace(/%s/g, () => { return args[argIndex++]; })}`);
+    const error = new Error(`${message.replace(/%s/g, () => args[argIndex++])}`);
     error.name = 'Violation';
     error.framesToPop = 2;
     throw error;

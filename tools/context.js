@@ -4,13 +4,9 @@ import { invariant, isObject } from '../src/utils';
 
 // creates an higher order component that can map parts of the context on subcomponent props
 export function enhanceWithPropsFromContext(mapper = a => a) {
-  return (Component) => {
-    return (props) => {
-      return (
-        <Component { ...props } { ...mapper(props.treeContext.__providedContext) } />
-      );
-    };
-  };
+  return (Component) => (props) => (
+    <Component { ...props } { ...mapper(props.treeContext.__providedContext) } />
+  );
 }
 
 // wrapper components and provide a context

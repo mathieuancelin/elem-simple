@@ -17,16 +17,14 @@ describe('elem-simple : components', () => {
         return null;
       }
     };
-    const App = () => {
-      return (
-        <ul>
-          <Conditional condition={true}><Item value="Item 1" /></Conditional>
-          <Conditional condition={false}><Item value="Item 2" /></Conditional>
-          <Conditional condition={() => true}><Item value="Item 3" /></Conditional>
-          <Conditional condition={() => true}><Item value="Item 4" /></Conditional>
-        </ul>
-      );
-    };
+    const App = () => (
+      <ul>
+        <Conditional condition={true}><Item value="Item 1" /></Conditional>
+        <Conditional condition={false}><Item value="Item 2" /></Conditional>
+        <Conditional condition={() => true}><Item value="Item 3" /></Conditional>
+        <Conditional condition={() => true}><Item value="Item 4" /></Conditional>
+      </ul>
+    );
     const app = React.render(App, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
@@ -47,16 +45,14 @@ describe('elem-simple : components', () => {
     const Item = (props) => <div className={['item', props.commonStyle.name]}>{props.value}</div>;
     const BootstrapItem = provideStyle({ name: 'bootstrap' })(Item);
     const MaterialItem = provideStyle({ name: 'material' })(Item);
-    const App = () => {
-      return (
-        <div>
-          <BootstrapItem value="Item 1" />
-          <MaterialItem value="Item 2" />
-          <BootstrapItem value="Item 3" />
-          <MaterialItem value="Item 4" />
-        </div>
-      );
-    };
+    const App = () => (
+      <div>
+        <BootstrapItem value="Item 1" />
+        <MaterialItem value="Item 2" />
+        <BootstrapItem value="Item 3" />
+        <MaterialItem value="Item 4" />
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const bootstrapDivs = [].slice.call(document.querySelectorAll('.bootstrap'));
     const materialDivs = [].slice.call(document.querySelectorAll('.material'));

@@ -7,11 +7,9 @@ import { invariant, escape, sid } from '../src/utils';
 
 describe('elem-simple', () => {
   it('should just work !!!', () => {
-    const App = () => {
-      return (
-        <div id="hello" dataTruc="machin" className={['btn', 'btn-primary']} style={{ color: 'red', backgroundColor: 'white' }}>Hello World!</div>
-      );
-    };
+    const App = () => (
+      <div id="hello" dataTruc="machin" className={['btn', 'btn-primary']} style={{ color: 'red', backgroundColor: 'white' }}>Hello World!</div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const div = document.getElementById('hello');
     expect(div.innerHTML).to.be.equal('Hello World!');
@@ -24,17 +22,15 @@ describe('elem-simple', () => {
   });
   it('should play nice with predicates', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
-    const App = () => {
-      return (
-        <ul>
-          {React.predicate(true, <Item value="Item 1" />)}
-          {React.predicate(false, <Item value="Item 2" />)}
-          {React.predicate(() => true, <Item value="Item 3" />)}
-          {React.predicate(() => true, () => <Item value="Item 4" />)}
-          {React.predicate(() => false, () => <Item value="Item 5" />)}
-        </ul>
-      );
-    };
+    const App = () => (
+      <ul>
+        {React.predicate(true, <Item value="Item 1" />)}
+        {React.predicate(false, <Item value="Item 2" />)}
+        {React.predicate(() => true, <Item value="Item 3" />)}
+        {React.predicate(() => true, () => <Item value="Item 4" />)}
+        {React.predicate(() => false, () => <Item value="Item 5" />)}
+      </ul>
+    );
     const app = React.render(App, document.getElementById('app'), true);
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
@@ -51,17 +47,15 @@ describe('elem-simple', () => {
     app.cleanup();
   });
   it('should handle null or undefined nodes', () => {
-    const App = () => {
-      return (
-        <ul>
-          <li className="item">Item 1</li>
-          {null}
-          <li className="item">Item 2</li>
-          {undefined}
-          <li className="item">Item 3</li>
-        </ul>
-      );
-    };
+    const App = () => (
+      <ul>
+        <li className="item">Item 1</li>
+        {null}
+        <li className="item">Item 2</li>
+        {undefined}
+        <li className="item">Item 3</li>
+      </ul>
+    );
     const app = React.render(App, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;

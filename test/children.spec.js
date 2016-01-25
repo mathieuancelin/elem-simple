@@ -8,15 +8,13 @@ describe('elem-simple : children', () => {
   it('should handle components with children', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
     const Wrapper = (props) => <ul className="wrapper">{props.children}</ul>;
-    const App = () => {
-      return (
-        <Wrapper>
-          <Item value="Item 1" />
-          <Item value="Item 2" />
-          <Item value="Item 3" />
-        </Wrapper>
-      );
-    };
+    const App = () => (
+      <Wrapper>
+        <Item value="Item 1" />
+        <Item value="Item 2" />
+        <Item value="Item 3" />
+      </Wrapper>
+    );
     const app = React.render(App, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
@@ -41,23 +39,21 @@ describe('elem-simple : children', () => {
     const returnBoolean = () => false;
     const returnNull = () => null;
     const returnUndefined = () => undefined;
-    const App = () => {
-      return (
-        <Wrapper>
-          <Item value="Item 1" />
-          {returnArray()}
-          <Item value="Item 2" />
-          {returnBoolean()}
-          <Item value="Item 3" />
-          {returnNull()}
-          <Item value="Item 4" />
-          {returnUndefined()}
-          <Item value="Item 5" />
-          {returnZero()}
-          <Item value="Item 6" />
-        </Wrapper>
-      );
-    };
+    const App = () => (
+      <Wrapper>
+        <Item value="Item 1" />
+        {returnArray()}
+        <Item value="Item 2" />
+        {returnBoolean()}
+        <Item value="Item 3" />
+        {returnNull()}
+        <Item value="Item 4" />
+        {returnUndefined()}
+        <Item value="Item 5" />
+        {returnZero()}
+        <Item value="Item 6" />
+      </Wrapper>
+    );
     const app = React.render(App, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
@@ -91,23 +87,21 @@ describe('elem-simple : children', () => {
     const ReturnBoolean = () => false;
     const ReturnNull = () => null;
     const ReturnUndefined = () => undefined;
-    const App = () => {
-      return (
-        <Wrapper>
-          <Item value="Item 1" />
-          <ReturnArray />
-          <Item value="Item 2" />
-          <ReturnBoolean />
-          <Item value="Item 3" />
-          <ReturnNull />
-          <Item value="Item 4" />
-          <ReturnUndefined />
-          <Item value="Item 5" />
-          <ReturnZero />
-          <Item value="Item 6" />
-        </Wrapper>
-      );
-    };
+    const App = () => (
+      <Wrapper>
+        <Item value="Item 1" />
+        <ReturnArray />
+        <Item value="Item 2" />
+        <ReturnBoolean />
+        <Item value="Item 3" />
+        <ReturnNull />
+        <Item value="Item 4" />
+        <ReturnUndefined />
+        <Item value="Item 5" />
+        <ReturnZero />
+        <Item value="Item 6" />
+      </Wrapper>
+    );
     const app = React.render(App, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
@@ -134,26 +128,22 @@ describe('elem-simple : children', () => {
     app.cleanup();
   });
   it('should handle a zero child', () => {
-    const App = () => {
-      return (
-        <ul>
-          <li>{0}</li>
-        </ul>
-      );
-    };
+    const App = () => (
+      <ul>
+        <li>{0}</li>
+      </ul>
+    );
     const app = React.render(App, document.getElementById('app'));
     const li = document.querySelector('li');
     expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
   });
   it('should handle a zero child JSX', () => {
-    const App = () => {
-      return (
-        <ul>
-          <li>0</li>
-        </ul>
-      );
-    };
+    const App = () => (
+      <ul>
+        <li>0</li>
+      </ul>
+    );
     const app = React.render(App, document.getElementById('app'));
     const li = document.querySelector('li');
     expect(li.innerHTML).to.be.equal('0');

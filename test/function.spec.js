@@ -7,15 +7,13 @@ import { describe, it } from 'mocha';
 describe('elem-simple : functions', () => {
   it('should provide components through pure functions', () => {
     const Item = (props) => <li>Item : {props.name}</li>;
-    const App = () => {
-      return (
-        <div>
-          <Item name="John" />
-          <Item name="Paul" />
-          <Item name="Jones" />
-        </div>
-      );
-    };
+    const App = () => (
+      <div>
+        <Item name="John" />
+        <Item name="Paul" />
+        <Item name="Jones" />
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const items = document.getElementsByTagName('li');
     expect(items.length).to.be.equal(3);
@@ -55,19 +53,17 @@ describe('elem-simple : functions', () => {
       secondValue = 400;
       props.redraw();
     }}>{secondValue}</div>;
-    const App = (props) => {
-      return (
-        <div>
-          <FirstComponent />
-          <SecondComponent />
-          <button type="button" onClick={() => {
-            firstValue += 1;
-            secondValue += 2;
-            props.redraw();
-          }}>click me</button>
-        </div>
-      );
-    };
+    const App = (props) => (
+      <div>
+        <FirstComponent />
+        <SecondComponent />
+        <button type="button" onClick={() => {
+          firstValue += 1;
+          secondValue += 2;
+          props.redraw();
+        }}>click me</button>
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     let div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');

@@ -9,23 +9,19 @@ describe('elem-simple : myself', () => {
     let firstValue = 1;
     let secondValue = 1;
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
-    const SecondComponent = (props) => {
-      return (
-        <div className="secondcomponent" onClick={() => {
-          secondValue = 600;
-          firstValue = 1000;
-          props.myself.redraw({ value: secondValue });
-        }}>{props.value}</div>
+    const SecondComponent = (props) => (
+      <div className="secondcomponent" onClick={() => {
+        secondValue = 600;
+        firstValue = 1000;
+        props.myself.redraw({ value: secondValue });
+      }}>{props.value}</div>
     );
-    };
-    const App = () => {
-      return (
-        <div>
-          <FirstComponent value={firstValue} />
-          <SecondComponent value={secondValue} />
-        </div>
-      );
-    };
+    const App = () => (
+      <div>
+        <FirstComponent value={firstValue} />
+        <SecondComponent value={secondValue} />
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
@@ -41,23 +37,19 @@ describe('elem-simple : myself', () => {
     let firstValue = 1;
     let secondValue = 1;
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
-    const SecondComponent = (props) => {
-      return (
-        <div className="secondcomponent" onClick={() => {
-          secondValue = 600;
-          firstValue = 1000;
-          props.myself.redraw();
-        }}>{props.value}</div>
+    const SecondComponent = (props) => (
+      <div className="secondcomponent" onClick={() => {
+        secondValue = 600;
+        firstValue = 1000;
+        props.myself.redraw();
+      }}>{props.value}</div>
     );
-    };
-    const App = () => {
-      return (
-        <div>
-          <FirstComponent value={firstValue} />
-          <SecondComponent value={secondValue} />
-        </div>
-      );
-    };
+    const App = () => (
+      <div>
+        <FirstComponent value={firstValue} />
+        <SecondComponent value={secondValue} />
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
@@ -73,23 +65,19 @@ describe('elem-simple : myself', () => {
     let firstValue = 1;
     let secondValue = 1;
     const FirstComponent = (props) => <div className="firstcomponent">{props.value}</div>;
-    const SecondComponent = (props) => {
-      return (
-        <div className="secondcomponent" onClick={() => {
-          secondValue = 600;
-          firstValue = 1000;
-          props.myself.replaceWith(<SecondComponent value={secondValue} />);
-        }}>{props.value}</div>
-      );
-    };
-    const App = () => {
-      return (
-        <div>
-          <FirstComponent value={firstValue} />
-          <SecondComponent value={secondValue} />
-        </div>
-      );
-    };
+    const SecondComponent = (props) => (
+      <div className="secondcomponent" onClick={() => {
+        secondValue = 600;
+        firstValue = 1000;
+        props.myself.replaceWith(<SecondComponent value={secondValue} />);
+      }}>{props.value}</div>
+    );
+    const App = () => (
+      <div>
+        <FirstComponent value={firstValue} />
+        <SecondComponent value={secondValue} />
+      </div>
+    );
     const app = React.render(App, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');

@@ -78,30 +78,26 @@ export class RootStoreProvider extends React.Component {
 }
 
 export function enhanceWithStore(mapper = emptyObject) {
-  return (Component) => {
-    return (props) => {
-      const store = props.treeContext.__providedStore;
-      const ctx = {};
-      ctx.subscription = store.subscribe(() => {
-        ctx.subscription();
-        props.myself.redraw();
-      });
-      return (
-        <span className="store-enhanced">
-          <Component { ...props } store={store} { ...mapper(store) } />
-        </span>
-      );
-    };
+  return (Component) => (props) => {
+    const store = props.treeContext.__providedStore;
+    const ctx = {};
+    ctx.subscription = store.subscribe(() => {
+      ctx.subscription();
+      props.myself.redraw();
+    });
+    return (
+      <span className="store-enhanced">
+        <Component { ...props } store={store} { ...mapper(store) } />
+      </span>
+    );
   };
 }
 
 export function enhanceWithPropsFromStore(mapper = emptyObject) {
-  return (Component) => {
-    return (props) => {
-      const store = props.treeContext.__providedStore;
-      return (
-        <Component { ...props } store={store} { ...mapper(store) } />
-      );
-    };
+  return (Component) => (props) => {
+    const store = props.treeContext.__providedStore;
+    return (
+      <Component { ...props } store={store} { ...mapper(store) } />
+    );
   };
 }

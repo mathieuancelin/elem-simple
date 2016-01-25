@@ -10,16 +10,14 @@ describe('elem-simple : perfs', function description() {
   this.timeout(15000);
   it('running perfs test', (done) => {
     const Hello = ({ who }) => <h1>Hello ${who}</h1>;
-    const App = () => {
-      return (
-        <div id="hello"
-          dataTruc="machin"
-          className={['btn', 'btn-primary']}
-          style={{ color: 'red', backgroundColor: 'white' }}>
-          <Hello who="World!" />
-        </div>
-      );
-    };
+    const App = () => (
+      <div id="hello"
+        dataTruc="machin"
+        className={['btn', 'btn-primary']}
+        style={{ color: 'red', backgroundColor: 'white' }}>
+        <Hello who="World!" />
+      </div>
+    );
     let app;
     const render = () => app = React.render(App, document.getElementById('app'));
     const loop = (times, what) => {

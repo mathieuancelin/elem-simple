@@ -6,11 +6,9 @@ import { describe, it } from 'mocha';
 
 describe('elem-simple : style', () => {
   it('should handle style object', () => {
-    const App = () => {
-      return (
-        <h1 style={{ color: 'red', backgroundColor: 'black', border: '1px solid blue' }}>Hello World!</h1>
-      );
-    };
+    const App = () => (
+      <h1 style={{ color: 'red', backgroundColor: 'black', border: '1px solid blue' }}>Hello World!</h1>
+    );
     const app = React.render(App, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
@@ -20,11 +18,9 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle style string', () => {
-    const App = () => {
-      return (
-        <h1 style="color:red;background-color:black;border:1px solid blue;">Hello World!</h1>
-      );
-    };
+    const App = () => (
+      <h1 style="color:red;background-color:black;border:1px solid blue;">Hello World!</h1>
+    );
     const app = React.render(App, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
@@ -34,11 +30,9 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle style function', () => {
-    const App = () => {
-      return (
-        <h1 style={{ color: () => 'red' }}>Hello World!</h1>
-      );
-    };
+    const App = () => (
+      <h1 style={{ color: () => 'red' }}>Hello World!</h1>
+    );
     const app = React.render(App, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
@@ -46,11 +40,9 @@ describe('elem-simple : style', () => {
     app.cleanup();
   });
   it('should handle undefined style', () => {
-    const App = () => {
-      return (
-        <h1 style={undefined}>Hello World!</h1>
-      );
-    };
+    const App = () => (
+      <h1 style={undefined}>Hello World!</h1>
+    );
     const app = React.render(App, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.getAttribute('style')).to.be.equal('');

@@ -13,6 +13,7 @@
     "no-else-return": 0,
     "react/no-deprecated": 0,
     "react/jsx-no-bind": 0,
-    "max-len": [2, 150, 2]
+    "max-len": [2, 150, 2],
+    "arrow-body-style": [2, "as-needed"]
   }
 }

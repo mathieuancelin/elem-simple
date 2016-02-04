@@ -17,8 +17,8 @@ or import the script from npmcdn with
 the `Elem` API is pretty simple
 
 * `Elem.createElement(name, props, ...children)`: create the representation of a DOM node(called an element below). Used by JSX expressions.
-* `Elem.render(func, node, append = false)`: render the tree of elements returned by the `function` into the `node`
-* `Elem.renderToString(func)`: return an HTML string representation for the tree of elements returned by the `function`
+* `Elem.render(tree, node, append = false)`: render the tree of elements into the `node`
+* `Elem.renderToString(tree)`: return an HTML string representation for the tree of elements
 * `Elem.Component` : Component class to subclass
 
 you can use it this way
@@ -49,7 +49,7 @@ setTimeout(() => {
 
 ### JSX support
 
-elem comes with builtin [JSX](https://jsx.github.io/) support through `createElement` function.
+elem comes with builtin [JSX](https://facebook.github.io/jsx/) support through `createElement` function.
 
 You can either provider a `jsx pragma` to Babel
 

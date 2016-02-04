@@ -1,6 +1,6 @@
 {
   "name": "elem-simple",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simplest version of elemjs",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",

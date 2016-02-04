@@ -17,12 +17,10 @@ function clearNode(node) {
 /**
  * Render an element tree or a function that returns an element tree into an HTML string
  */
-export function renderToString(func) {
+export function renderToString(tree) {
   // check if param is a function or an element
-  invariant(isFunction(func) || isArray(func) || func.__type, 'You have to provide a function or an element to `renderToString`');
-  if (!isFunction(func)) return serializeElementToString(func);
-  return toArray(func({ children: [], myself: {}, redraw: {}, treeContext: {} }))
-    .map(e => serializeElementToString(e)).join('');
+  invariant(isArray(tree) || tree.__type, 'You have to provide a function or an element to `renderToString`');
+  return toArray(tree).map(e => serializeElementToString(e)).join('');
 }
 
 /**

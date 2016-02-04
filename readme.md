@@ -33,7 +33,7 @@ const Hello = ({ who = 'World' }) => <h1>Hello {who}! ({Date.now()})</h1>;
 const App = () => <div><Hello who="Mathieu" /></div>;
 
 // render the App function inside the DOM
-const app = Elem.render(App, document.getElementById('app'));
+const app = Elem.render(<App />, document.getElementById('app'));
 
 // redraw the App function every second
 const interval = setInterval(app.redraw, 1000);
@@ -77,13 +77,17 @@ or provide a fake `React` context
 import { render, createElement } from 'elem-simple';
 
 const React = { createElement };
+const ReactDOM = { render };
 
 const App = ({ who = 'World' }) => <h1>Hello {who}!</h1>;
 
-render(<App who="Mathieu" />, document.getElementById('app'));
+ReactDOM.render(<App who="Mathieu" />, document.getElementById('app'));
 ```
 
-### Functions as tags or stateless components
+### Functions as tags (or stateless components)
+
+As you may have noticed, the first argument of `Elem.createElement` is either a string, a function that
+return a JSX tree or a subclass instance of `Elem.Component`.
 
 ```javascript
 import Elem from 'elem-simple';
@@ -91,7 +95,7 @@ import Elem from 'elem-simple';
 const Item = ({ name = '--' }) => <li>{props.name}</li>;
 const App = (props) => <ul>{props.who.map(item => <Item name={item} />)}</ul>;
 
-Elem.render(<App who={['Mathieu', 'Quentin']} />, document.getElementById('app'));
+Elem.render(<App who={['John', 'Jane']} />, document.getElementById('app'));
 ```
 
 ### Classes as tags or stateless components
@@ -103,8 +107,15 @@ class App extends Elem.Component {
   constructor(props) {
     super(props);
   }
+  getDefaultProps() {
+    return {
+      who: 'World',
+    };
+  },
   render() {
-    return <h1>Hello {this.props.who}!</h1>;
+    return (
+      <h1>Hello {this.props.who}!</h1>
+    );
   }
 }
 
@@ -214,7 +225,8 @@ const Component = (props) => {
 * you can attach event handlers on any DOM element with a function as property called `onEventname`
 * reusable components are done via plain old functions
   * each call to these functions are made by the library
-  * the first argument and only of the function is the properties of the element
+  * the call to these functions is deffered until the library need to render it to the DOM or elsewhere
+  * the first and only argument of the function is the properties of the element
   * the properties contains a special attribute (`children`) that represents the array of children of the element. Can be empty
   * the properties contains a special attribute (`redraw`) that allow the user to re-render the whole element tree passed to `Elem.render`
   * the properties contains a special attribute (`myself`) that contains informations about the physical place in DOM where the element tree of the function will be inserted
@@ -230,7 +242,7 @@ const Component = (props) => {
     * an object that will be serialized to a style value
   * if you define the property `ref` on a DOM element as a function, this function will be called with the actual DOM node created by `Elem` as the first parameter of the function
 * reusable components are also done via classes that extends `Elem.Component` with a `render` method. `props` are available through `this`.
-* `Elem.render` can render pure elements or a function that returns elements
+* `Elem.render` can render pure elements create with `Elem.createElement`
 * `Elem.render` takes an `HTMLElement` as second parameter
 * `Elem.render` can take a third parameter to specify if the element tree will be appended to the root node of if the content of the root node will be deleted. By default, it's deleted
 * `Elem.renderToString` return a string output of the element tree

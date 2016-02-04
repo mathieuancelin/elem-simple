@@ -19,7 +19,7 @@ the `Elem` API is pretty simple
 * `Elem.createElement(name, props, ...children)`: create the representation of a DOM node(called an element below). Used by JSX expressions.
 * `Elem.render(func, node, append = false)`: render the tree of elements returned by the `function` into the `node`
 * `Elem.renderToString(func)`: return an HTML string representation for the tree of elements returned by the `function`
-* `Elem.predicate(predicate, node)`: return `node` if predicate is true
+* `Elem.Component` : Component class to subclass
 
 you can use it this way
 
@@ -49,7 +49,7 @@ setTimeout(() => {
 
 ### JSX support
 
-elem comes with builtin [JSX](https://jsx.github.io/) support through `createElement` or `jsx` functions.
+elem comes with builtin [JSX](https://jsx.github.io/) support through `createElement` function.
 
 You can either provider a `jsx pragma` to Babel
 
@@ -58,7 +58,7 @@ You can either provider a `jsx pragma` to Babel
 {
   "presets": ["stage-0", "es2015", "react"],
   "plugins": [
-    ["transform-react-jsx", { "pragma": "Elem.jsx" }]
+    ["transform-react-jsx", { "pragma": "Elem.createElement" }]
   ]
 }
 ```
@@ -215,13 +215,9 @@ const Component = (props) => {
 };
 ```
 
-### Predicate
-
-`Elem.predicate(predicate, element)` allow conditional render of JSX nodes
-
 ### Specs
 
-* JSX first class support through `Elem.createElement` or `Elem.jsx`
+* JSX first class support through `Elem.createElement`
 * you can attach event handlers on any DOM element with a function as property called `onEventname`
 * reusable components are done via plain old functions
   * each call to these functions are made by the library
@@ -247,7 +243,5 @@ const Component = (props) => {
 * `Elem.render` can take a third parameter to specify if the element tree will be appended to the root node of if the content of the root node will be deleted. By default, it's deleted
 * `Elem.renderToString` return a string output of the element tree
 * `Elem.renderToString` doesn't need to be called inside a browser env
-* `Elem.predicate` returns the object passed a second param if the predicate passed as first param is true
-* `Elem.predicate` first param can be a function
 * `Elem` can render `SVG` nodes
 * if you pass an `attributes` object on an HTML element, all the values of the object will be directly set on the actual DOM node. Works for stuff like `innerHTML`, `indeterminate`, etc ...

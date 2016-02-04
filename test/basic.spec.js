@@ -1,6 +1,7 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
 import * as React from '../src/index';
+import * as React2 from '../tools/compat';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { invariant, escape, sid } from '../src/utils';
@@ -24,11 +25,11 @@ describe('elem-simple', () => {
     const Item = (props) => <li className="item">{props.value}</li>;
     const App = () => (
       <ul>
-        {React.predicate(true, <Item value="Item 1" />)}
-        {React.predicate(false, <Item value="Item 2" />)}
-        {React.predicate(() => true, <Item value="Item 3" />)}
-        {React.predicate(() => true, () => <Item value="Item 4" />)}
-        {React.predicate(() => false, () => <Item value="Item 5" />)}
+        {React2.predicate(true, <Item value="Item 1" />)}
+        {React2.predicate(false, <Item value="Item 2" />)}
+        {React2.predicate(() => true, <Item value="Item 3" />)}
+        {React2.predicate(() => true, () => <Item value="Item 4" />)}
+        {React2.predicate(() => false, () => <Item value="Item 5" />)}
       </ul>
     );
     const app = React.render(<App />, document.getElementById('app'), true);

@@ -10,7 +10,7 @@ describe('elem-simple', () => {
     const App = () => (
       <div id="hello" dataTruc="machin" className={['btn', 'btn-primary']} style={{ color: 'red', backgroundColor: 'white' }}>Hello World!</div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const div = document.getElementById('hello');
     expect(div.innerHTML).to.be.equal('Hello World!');
     expect(div.getAttribute('data-truc')).to.be.equal('machin');
@@ -31,7 +31,7 @@ describe('elem-simple', () => {
         {React.predicate(() => false, () => <Item value="Item 5" />)}
       </ul>
     );
-    const app = React.render(App, document.getElementById('app'), true);
+    const app = React.render(<App />, document.getElementById('app'), true);
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(children.length).to.be.equal(3);
@@ -56,7 +56,7 @@ describe('elem-simple', () => {
         <li className="item">Item 3</li>
       </ul>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(children.length).to.be.equal(3);

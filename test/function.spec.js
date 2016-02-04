@@ -14,7 +14,7 @@ describe('elem-simple : functions', () => {
         <Item name="Jones" />
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const items = document.getElementsByTagName('li');
     expect(items.length).to.be.equal(3);
     expect(items[0].innerHTML).to.be.equal('Item : John');
@@ -37,7 +37,7 @@ describe('elem-simple : functions', () => {
         </div>
       );
     };
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     const div2 = document.querySelector('.secondcomponent');
     expect(div1.innerHTML).to.be.equal('value1');
@@ -64,7 +64,7 @@ describe('elem-simple : functions', () => {
         }}>click me</button>
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     let div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
     const button = document.getElementsByTagName('button')[0];

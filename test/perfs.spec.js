@@ -19,7 +19,7 @@ describe('elem-simple : perfs', function description() {
       </div>
     );
     let app;
-    const render = () => app = React.render(App, document.getElementById('app'));
+    const render = () => app = React.render(<App />, document.getElementById('app'));
     const loop = (times, what) => {
       for (let j = 0; j < times; j++) {
         what();

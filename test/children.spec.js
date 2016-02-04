@@ -15,7 +15,7 @@ describe('elem-simple : children', () => {
         <Item value="Item 3" />
       </Wrapper>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(ul.className).to.be.equal('wrapper');
@@ -54,7 +54,7 @@ describe('elem-simple : children', () => {
         <Item value="Item 6" />
       </Wrapper>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(ul.className).to.be.equal('wrapper');
@@ -102,7 +102,7 @@ describe('elem-simple : children', () => {
         <Item value="Item 6" />
       </Wrapper>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(ul.className).to.be.equal('wrapper');
@@ -133,7 +133,7 @@ describe('elem-simple : children', () => {
         <li>{0}</li>
       </ul>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const li = document.querySelector('li');
     expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
@@ -144,7 +144,7 @@ describe('elem-simple : children', () => {
         <li>0</li>
       </ul>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const li = document.querySelector('li');
     expect(li.innerHTML).to.be.equal('0');
     app.cleanup();
@@ -154,7 +154,7 @@ describe('elem-simple : children', () => {
     const App = () => <div><Arr /></div>;
     let err = false;
     try {
-      React.render(App, document.getElementById('app'));
+      React.render(<App />, document.getElementById('app'));
     } catch (e) {
       err = true;
     }

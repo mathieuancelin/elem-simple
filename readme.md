@@ -225,7 +225,7 @@ const Component = (props) => {
 * you can attach event handlers on any DOM element with a function as property called `onEventname`
 * reusable components are done via plain old functions
   * each call to these functions are made by the library
-  * the call to these functions is deffered until the library need to render it to the DOM or elsewhere
+  * the call to these functions is deferred until the library need to render it to the DOM or elsewhere
   * the first and only argument of the function is the properties of the element
   * the properties contains a special attribute (`children`) that represents the array of children of the element. Can be empty
   * the properties contains a special attribute (`redraw`) that allow the user to re-render the whole element tree passed to `Elem.render`
@@ -242,7 +242,7 @@ const Component = (props) => {
     * an object that will be serialized to a style value
   * if you define the property `ref` on a DOM element as a function, this function will be called with the actual DOM node created by `Elem` as the first parameter of the function
 * reusable components are also done via classes that extends `Elem.Component` with a `render` method. `props` are available through `this`.
-* `Elem.render` can render pure elements create with `Elem.createElement`
+* `Elem.render` can render an element tree, or an array of element tree created with `Elem.createElement`
 * `Elem.render` takes an `HTMLElement` as second parameter
 * `Elem.render` can take a third parameter to specify if the element tree will be appended to the root node of if the content of the root node will be deleted. By default, it's deleted
 * `Elem.renderToString` return a string output of the element tree

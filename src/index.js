@@ -28,12 +28,12 @@ export function renderToString(func) {
 /**
  * Render an element tree or a function that returns an element tree into a root node
  */
-export function render(func, node, append = false) {
+export function render(tree, node, append = false) {
   // check the type of stuff to render and the place where you want to render it
   invariant(window.document, 'It seems it\'s not a browser environment here :(, you can\'t call `render`');
-  invariant(isFunction(func) || isArray(func) || func.__type, 'You have to provide a function or an element to `render`');
+  invariant(isArray(tree) || tree.__type, 'You have to provide a function or an element to `render`');
   invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
-  if (!isFunction(func)) return render(() => func, node);
+  // if (!isFunction(func)) return render(() => func, node);
   const nodeId = sid('root-');
   // the current DOM document
   const doc = window.document;
@@ -42,10 +42,8 @@ export function render(func, node, append = false) {
   // create the function to be able to redraw the tree
   ctx.redraw = () => {
     let cleared = false;
-    // call the function
-    const tree = toArray(func({ children: [], myself: {}, redraw: ctx.redraw, treeContext: ctx.context }));
     // if not in append mode, clear the root node
-    tree.forEach(item => {
+    toArray(tree).forEach(item => {
       // render the sub tree as actual DOM node
       const domNode = serializeElementToDOM(doc, item, ctx);
       domNode.setAttribute('data-root', nodeId);

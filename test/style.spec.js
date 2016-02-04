@@ -9,7 +9,7 @@ describe('elem-simple : style', () => {
     const App = () => (
       <h1 style={{ color: 'red', backgroundColor: 'black', border: '1px solid blue' }}>Hello World!</h1>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
     expect(h1.style.backgroundColor).to.be.equal('black');
@@ -21,7 +21,7 @@ describe('elem-simple : style', () => {
     const App = () => (
       <h1 style="color:red;background-color:black;border:1px solid blue;">Hello World!</h1>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
     expect(h1.style.backgroundColor).to.be.equal('black');
@@ -33,7 +33,7 @@ describe('elem-simple : style', () => {
     const App = () => (
       <h1 style={{ color: () => 'red' }}>Hello World!</h1>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.style.color).to.be.equal('red');
     expect(h1.getAttribute('style')).to.be.equal('color:red;');
@@ -43,7 +43,7 @@ describe('elem-simple : style', () => {
     const App = () => (
       <h1 style={undefined}>Hello World!</h1>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.getAttribute('style')).to.be.equal('');
     app.cleanup();

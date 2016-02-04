@@ -22,7 +22,7 @@ describe('elem-simple : myself', () => {
         <SecondComponent value={secondValue} />
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
     expect(div1.innerHTML).to.be.equal('1');
@@ -50,7 +50,7 @@ describe('elem-simple : myself', () => {
         <SecondComponent value={secondValue} />
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
     expect(div1.innerHTML).to.be.equal('1');
@@ -78,7 +78,7 @@ describe('elem-simple : myself', () => {
         <SecondComponent value={secondValue} />
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const div1 = document.querySelector('.firstcomponent');
     let div2 = document.querySelector('.secondcomponent');
     expect(div1.innerHTML).to.be.equal('1');

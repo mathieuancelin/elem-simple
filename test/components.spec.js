@@ -25,7 +25,7 @@ describe('elem-simple : components', () => {
         <Conditional condition={() => true}><Item value="Item 4" /></Conditional>
       </ul>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const ul = document.querySelector('ul');
     const children = ul.childNodes;
     expect(children.length).to.be.equal(3);
@@ -53,7 +53,7 @@ describe('elem-simple : components', () => {
         <MaterialItem value="Item 4" />
       </div>
     );
-    const app = React.render(App, document.getElementById('app'));
+    const app = React.render(<App />, document.getElementById('app'));
     const bootstrapDivs = [].slice.call(document.querySelectorAll('.bootstrap'));
     const materialDivs = [].slice.call(document.querySelectorAll('.material'));
     expect(bootstrapDivs.length).to.be.equal(2);

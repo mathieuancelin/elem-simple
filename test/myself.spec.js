@@ -89,10 +89,9 @@ describe('elem-simple : myself', () => {
     expect(div2.innerHTML).to.be.equal('600');
     app.cleanup();
   });
-
   it('should provide a way to redraw a particular tag surrounded by other tags', () => {
     const FirstComponent = (props) => (
-      <div>
+      <div className="rfc">
         <div className="firstcomponent">{props.value}</div>
         <button type="button" onClick={() => props.myself.redraw({ value: 2 })}>Click</button>
       </div>
@@ -120,6 +119,77 @@ describe('elem-simple : myself', () => {
     button.click();
     div1 = document.querySelector('.firstcomponent');
     expect(div1.innerHTML).to.be.equal('2');
+    app.cleanup();
+  });
+  it('should provide a way to redraw a particular tag surrounded by other tags 2', () => {
+    const FirstComponent = (props) => (
+      <div className="rfc">
+        <div className="firstcomponent">{props.value}</div>
+        <button type="button" onClick={() => props.myself.redraw({ value: 2 })}>Click</button>
+      </div>
+    );
+    const Other = () => <span>other</span>;
+    const Wrapper = (props) => props.children[0];
+    const App = () => (
+      <div>
+        <Wrapper>
+          <Wrapper>
+            <Wrapper>
+              <Wrapper>
+                <Wrapper>
+                  <div>
+                    <Other />
+                    <FirstComponent value={1} />
+                  </div>
+                </Wrapper>
+              </Wrapper>
+            </Wrapper>
+          </Wrapper>
+        </Wrapper>
+      </div>
+    );
+    const app = React.render(<App />, document.getElementById('app'));
+    let div1 = document.querySelector('.firstcomponent');
+    const button = document.querySelector('button');
+    expect(div1.innerHTML).to.be.equal('1');
+    button.click();
+    div1 = document.querySelector('.firstcomponent');
+    expect(div1.innerHTML).to.be.equal('2');
+    app.cleanup();
+  });
+  it('should avoid eating parts when redrawing nested components', () => {
+    const Wrapper = (props) => props.children[0];
+    const WrapperUl = (props) => <ul>{props.children[0]}</ul>;
+    const FirstComponent = (props) => (
+      <Wrapper>
+        <div>
+          <div className="firstcomponent">{props.value}</div>
+          <button type="button" onClick={() => props.myself.redraw({ value: 2 })}>Click</button>
+        </div>
+      </Wrapper>
+    );
+    const App = () => (
+      <div>
+        <Wrapper>
+          <WrapperUl>
+            <FirstComponent value={1} />
+          </WrapperUl>
+        </Wrapper>
+      </div>
+    );
+    const app = React.render(<App />, document.getElementById('app'));
+    let div1 = document.querySelector('.firstcomponent');
+    let ul = document.querySelector('ul');
+    const button = document.querySelector('button');
+    expect(div1.innerHTML).to.be.equal('1');
+    expect(ul).to.not.be.undefined; // eslint-disable-line
+    expect(ul).to.not.be.null; // eslint-disable-line
+    button.click();
+    div1 = document.querySelector('.firstcomponent');
+    expect(div1.innerHTML).to.be.equal('2');
+    ul = document.querySelector('ul');
+    expect(ul).to.not.be.undefined; // eslint-disable-line
+    expect(ul).to.not.be.null; // eslint-disable-line
     app.cleanup();
   });
 });

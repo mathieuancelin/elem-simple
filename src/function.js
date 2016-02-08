@@ -13,14 +13,17 @@ export function renderFunction(el, ctx, doc) {
   const selector = `[data-fid="${el.nodeId}"]`;
   // the function to retrive the actual node from the DOM
   const getNode = () => doc.querySelector(selector);
+  // try to find the last actual DOM node as parent (prevent issues with nested function tags)
   const oldNativeNode = ctx.path[ctx.path.length - 1];
   const replaceWith = (element, $id) => {
-    const oldNode = oldNativeNode || getNode();
+    const oldNode = getNode();
+    // parent node is either last actual DOM node or current DOM node parent
+    const parentNode = oldNativeNode || oldNode.parentNode;
     // render the new sub tree as actual DOM node
     const newNode = serializeElementToDOM(doc, element, ctx);
     if ($id) newNode.setAttribute('data-fid', $id);
     // replace the old tree by the new tree
-    oldNode.parentNode.replaceChild(newNode, oldNode);
+    parentNode.replaceChild(newNode, oldNode || parentNode.firstChild); // firstChild because a function tag only returns one child
   };
   // the `myself`
   const myself = {

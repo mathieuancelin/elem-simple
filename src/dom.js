@@ -19,6 +19,7 @@ export function serializeElementToDOM(doc, element, ctx) {
     const node = element.namespace ?
       doc.createElementNS(element.namespace, element.name) :
       doc.createElement(element.name);
+    // add node in path to allow components tag to find last actual DOM node parent
     ctx.path.push(node);
     // for each property, add it to the node attributes
     for (const key in element.props) { // LOOP
@@ -65,6 +66,7 @@ export function serializeElementToDOM(doc, element, ctx) {
         }
       }
     }
+    // cleanup path as it's not needed anymore
     ctx.path.pop();
     // if there is a ref property and it's a function, call it with the actual DOM node
     if (element.props.ref) {

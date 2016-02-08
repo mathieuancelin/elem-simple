@@ -86,9 +86,7 @@ export function enhanceWithStore(mapper = emptyObject) {
       props.myself.redraw();
     });
     return (
-      <span className="store-enhanced">
-        <Component { ...props } store={store} { ...mapper(store) } />
-      </span>
+      <Component { ...props } store={store} { ...mapper(store) } />
     );
   };
 }

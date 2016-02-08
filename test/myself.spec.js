@@ -89,4 +89,37 @@ describe('elem-simple : myself', () => {
     expect(div2.innerHTML).to.be.equal('600');
     app.cleanup();
   });
+
+  it('should provide a way to redraw a particular tag surrounded by other tags', () => {
+    const FirstComponent = (props) => (
+      <div>
+        <div className="firstcomponent">{props.value}</div>
+        <button type="button" onClick={() => props.myself.redraw({ value: 2 })}>Click</button>
+      </div>
+    );
+    const Wrapper = (props) => props.children[0];
+    const App = () => (
+      <div>
+        <Wrapper>
+          <Wrapper>
+            <Wrapper>
+              <Wrapper>
+                <Wrapper>
+                  <FirstComponent value={1} />
+                </Wrapper>
+              </Wrapper>
+            </Wrapper>
+          </Wrapper>
+        </Wrapper>
+      </div>
+    );
+    const app = React.render(<App />, document.getElementById('app'));
+    let div1 = document.querySelector('.firstcomponent');
+    const button = document.querySelector('button');
+    expect(div1.innerHTML).to.be.equal('1');
+    button.click();
+    div1 = document.querySelector('.firstcomponent');
+    expect(div1.innerHTML).to.be.equal('2');
+    app.cleanup();
+  });
 });

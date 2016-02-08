@@ -19,6 +19,7 @@ export function serializeElementToDOM(doc, element, ctx) {
     const node = element.namespace ?
       doc.createElementNS(element.namespace, element.name) :
       doc.createElement(element.name);
+    ctx.path.push(node);
     // for each property, add it to the node attributes
     for (const key in element.props) { // LOOP
       const value = element.props[key];
@@ -64,6 +65,7 @@ export function serializeElementToDOM(doc, element, ctx) {
         }
       }
     }
+    ctx.path.pop();
     // if there is a ref property and it's a function, call it with the actual DOM node
     if (element.props.ref) {
       invariant(isFunction(element.props.ref), `The ref propety of <${element.name} ... /> must be a function`);

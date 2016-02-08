@@ -36,7 +36,7 @@ export function render(tree, node, append = false) {
   // the current DOM document
   const doc = window.document;
   // create the tree context
-  const ctx = { context: {} };
+  const ctx = { context: {}, path: [] };
   // create the function to be able to redraw the tree
   ctx.redraw = () => {
     let cleared = false;

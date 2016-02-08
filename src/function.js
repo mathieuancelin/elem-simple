@@ -13,8 +13,9 @@ export function renderFunction(el, ctx, doc) {
   const selector = `[data-fid="${el.nodeId}"]`;
   // the function to retrive the actual node from the DOM
   const getNode = () => doc.querySelector(selector);
+  const oldNativeNode = ctx.path[ctx.path.length - 1];
   const replaceWith = (element, $id) => {
-    const oldNode = getNode();
+    const oldNode = oldNativeNode || getNode();
     // render the new sub tree as actual DOM node
     const newNode = serializeElementToDOM(doc, element, ctx);
     if ($id) newNode.setAttribute('data-fid', $id);

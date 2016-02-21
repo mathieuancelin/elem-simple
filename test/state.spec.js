@@ -25,7 +25,7 @@ class Clicker extends LeafComponentWithState {
 
 describe('elem-simple : leaf component state utils', () => {
   it('should be able to provide state for a leaf component', () => {
-    const app = React.render(<Clicker/>, document.getElementById('app'));
+    const app = React.render(<Clicker />, document.getElementById('app'));
     let h1 = document.getElementById('h1');
     expect(h1.innerHTML).to.be.equal('You have clicked 1 times');
     h1.click();

@@ -5,8 +5,12 @@
     "es6": true,
     "node": true
   },
-  "ecmaFeatures": {
-    "experimentalObjectRestSpread": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
   },
   "rules": {
     "guard-for-in": 0,
@@ -14,6 +18,9 @@
     "react/no-deprecated": 0,
     "react/jsx-no-bind": 0,
     "max-len": [2, 150, 2],
-    "arrow-body-style": [2, "as-needed"]
+    "arrow-body-style": [2, "as-needed"],
+    "no-confusing-arrow": 0,
+    "consistent-return": 0,
+    "no-return-assign": 0
   }
 }

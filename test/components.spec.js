@@ -66,9 +66,6 @@ describe('elem-simple : components', () => {
   });
   it('should be able to use Component classes', () => {
     class JessePinkman extends React.Component {
-      constructor(props) {
-        super(props);
-      }
       render() {
         return <h1>Yo {this.props.message}!</h1>;
       }

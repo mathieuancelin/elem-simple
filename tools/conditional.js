@@ -33,9 +33,8 @@ export class Conditional extends React.Component {
     }
     if (isTruthy(condition)) {
       return this.props.children[0];
-    } else {
-      return null;
     }
+    return null;
   }
 }
 
@@ -55,9 +54,8 @@ export function withConditionalRendering(Component) {
         return (
           <Component {...this.props} />
         );
-      } else {
-        return null;
       }
+      return null;
     }
   };
 }

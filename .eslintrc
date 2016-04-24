@@ -23,6 +23,10 @@
     "consistent-return": 0,
     "no-return-assign": 0,
     "react/prefer-stateless-function": 1,
-    "react/require-render-return": 0
+    "react/require-render-return": 0,
+    "react/jsx-first-prop-new-line": 0,
+    "global-require": 1,
+    "no-restricted-syntax": 0,
+    "no-underscore-dangle": 0
   }
 }

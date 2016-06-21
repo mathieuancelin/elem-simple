@@ -86,7 +86,7 @@ export function enhanceWithStore(mapper = emptyObject) {
       props.myself.redraw();
     });
     return (
-      <Component { ...props } store={store} { ...mapper(store) } />
+      <Component {...props} store={store} {...mapper(store)} />
     );
   };
 }
@@ -95,7 +95,7 @@ export function enhanceWithPropsFromStore(mapper = emptyObject) {
   return (Component) => (props) => {
     const store = props.treeContext.__providedStore;
     return (
-      <Component { ...props } store={store} { ...mapper(store) } />
+      <Component {...props} store={store} {...mapper(store)} />
     );
   };
 }

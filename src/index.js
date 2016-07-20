@@ -30,7 +30,7 @@ export function render(tree, node, append = false) {
   // check the type of stuff to render and the place where you want to render it
   invariant(window.document, 'It seems it\'s not a browser environment here :(, you can\'t call `render`');
   invariant(isArray(tree) || tree.__type, 'You have to provide a function or an element to `render`');
-  invariant(node instanceof HTMLElement, 'You have to provide an actual HTMLElement as root node');
+  invariant(node instanceof window.HTMLElement, 'You have to provide an actual HTMLElement as root node');
   // if (!isFunction(func)) return render(() => func, node);
   const nodeId = sid('root-');
   // the current DOM document

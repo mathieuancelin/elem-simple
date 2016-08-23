@@ -53,13 +53,13 @@
     "eslint": "^3.3.1",
     "eslint-config-airbnb": "^10.0.1",
     "eslint-plugin-filenames": "^1.1.0",
-    "eslint-plugin-import": "^1.13.0",
+    "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.2",
     "isparta": "^4.0.0",
     "jsdom": "^9.4.2",
     "mocha": "^3.0.2",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.15.0"
   }
 }

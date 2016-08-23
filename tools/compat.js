@@ -11,8 +11,8 @@ export const jsx = React.createElement;
  */
 export function predicate(p, what) {
   if (isFunction(p)) { // if it's a function, call it
-    return !!p() ? what : undefined;
+    return !!p() ? what : undefined; // eslint-disable-line
   } else {
-    return !!p ? what : undefined;
+    return !!p ? what : undefined; // eslint-disable-line
   }
 }

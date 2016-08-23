@@ -1,9 +1,9 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
-import * as React from '../src/index';
-import { isFunction } from '../src/utils';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import * as React from '../src/index';
+import { isFunction } from '../src/utils';
 
 describe('elem-simple : components', () => {
   it('should be able to wrap other components easily', () => {

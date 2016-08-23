@@ -1,8 +1,8 @@
 /* eslint no-console: 0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0, react/jsx-closing-bracket-location: 0 */
 
+import { describe, it } from 'mocha';
 import * as React from '../src/index';
 import { bootstrapEnv } from './bootstrap';
-import { describe, it } from 'mocha';
 
 bootstrapEnv('<div id="app"></div>');
 

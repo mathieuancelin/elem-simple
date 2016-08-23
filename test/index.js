@@ -1,4 +1,4 @@
-/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0 */
+/* eslint no-unused-vars:0, no-undef:0, no-unused-expressions:0, react/require-extension:0, global-require: 0 */
 
 import { bootstrapEnv } from './bootstrap';
 

@@ -1,8 +1,8 @@
 /* eslint no-unused-expressions: 0, react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
-import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import * as React from '../src/index';
 
 describe('elem-simple : attributes', () => {
   it('should handle direct attributes with the `attributes` props', () => {
@@ -12,7 +12,7 @@ describe('elem-simple : attributes', () => {
     app.cleanup();
   });
   it('should handle innerHTML with the `attributes` props', () => {
-    const app = React.render(<div attributes={{ innerHTML: '<h1>Test innerHTML</h1>' }}></div>, document.getElementById('app'));
+    const app = React.render(<div attributes={{ innerHTML: '<h1>Test innerHTML</h1>' }} />, document.getElementById('app'));
     const h1 = document.getElementsByTagName('h1')[0];
     expect(h1.innerHTML).to.be.equal('Test innerHTML');
     app.cleanup();

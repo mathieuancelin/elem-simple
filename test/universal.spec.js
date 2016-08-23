@@ -1,8 +1,8 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
-import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import * as React from '../src/index';
 
 describe('elem-simple : universal', () => {
   it('should provide a way render HTML on the server for simple tree', () => {
@@ -15,7 +15,7 @@ describe('elem-simple : universal', () => {
     expect(app).to.be.equal('<h1 class="title" style="color:red;">Hello World!</h1>');
   });
   it('should provide universal rendering that support innerHTML', () => {
-    const App = () => <h1 className="title"><div attributes={{ innerHTML: 'Hello World!' }}></div></h1>;
+    const App = () => <h1 className="title"><div attributes={{ innerHTML: 'Hello World!' }} /></h1>;
     const app = React.renderToString(<App />);
     expect(app).to.be.equal('<h1 class="title"><div>Hello World!</div></h1>');
   });

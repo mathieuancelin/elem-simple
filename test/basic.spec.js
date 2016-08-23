@@ -1,10 +1,10 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
-import * as React from '../src/index';
-import * as React2 from '../tools/compat';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { invariant, escape, sid } from '../src/utils';
+import * as React from '../src/index';
+import * as React2 from '../tools/compat';
 
 describe('elem-simple', () => {
   it('should just work !!!', () => {

@@ -92,13 +92,13 @@ export function createElement(name, props, ...children) {
   // create the element instance according to name type
   if (isFunction(name)) {
     return {
-      __type: 'function-node', nodeId, render: name, props: props || {},
-      children: [].concat.apply([], children),
+      __type: 'function-node', nodeId, render: name, props: props || {}, // eslint-disable-line
+      children: [].concat.apply([], children), // eslint-disable-line
     };
   }
   return {
     __type: 'simple-node',
-    nodeId, name: escape(name.toLowerCase()), props: props || {},
-    children: [].concat.apply([], children), namespace: namespace(name),
+    nodeId, name: escape(name.toLowerCase()), props: props || {}, // eslint-disable-line
+    children: [].concat.apply([], children), namespace: namespace(name), // eslint-disable-line
   };
 }

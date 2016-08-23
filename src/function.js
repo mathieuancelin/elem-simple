@@ -27,7 +27,7 @@ export function renderFunction(el, ctx, doc) {
   };
   // the `myself`
   const myself = {
-    id: el.nodeId, selector, getNode, replaceWith,
+    id: el.nodeId, selector, getNode, replaceWith, // eslint-disable-line
     redraw(props) {
       const newProps = { ...el.props, ...props };
       // render the current function again, with new props this time and replace the old tree with it

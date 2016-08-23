@@ -1,8 +1,8 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0, react/jsx-boolean-value: 0 */
 
-import * as React from '../src/index';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import * as React from '../src/index';
 import { LeafComponentWithState } from '../tools';
 
 class Clicker extends LeafComponentWithState {

@@ -5,8 +5,8 @@ export function bootstrapEnv(body = '') {
   const win = doc.defaultView;
   function propagateToGlobal(window) {
     for (const key in window) {
-      if (!window.hasOwnProperty(key)) continue;
-      if (key in global) continue;
+      if (!window.hasOwnProperty(key)) continue; // eslint-disable-line
+      if (key in global) continue; // eslint-disable-line
       global[key] = window[key];
     }
   }

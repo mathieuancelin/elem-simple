@@ -6,10 +6,10 @@ Super simple version of `elemjs`, under 300 loc and around 3,5Kb gzipped, with a
 npm install --save elem-simple
 ```
 
-or import the script from npmcdn with
+or import the script from unpkg with
 
 ```html
-<script src="https://npmcdn.com/elem-simple/dist/elem.js"></script>
+<script src="https://unpkg.com/elem-simple/dist/elem.js"></script>
 ```
 
 ### Basics

@@ -102,3 +102,8 @@ export function createElement(name, props, ...children) {
     children: [].concat.apply([], children), namespace: namespace(name), // eslint-disable-line
   };
 }
+
+/**
+ * hyperscript compat. function
+ */
+export const h = createElement;

@@ -41,7 +41,7 @@ export function render(tree, node, append = false) {
   ctx.redraw = () => {
     let cleared = false;
     // if not in append mode, clear the root node
-    toArray(tree).forEach(item => {
+    toArray(tree).forEach(item => { // BADLOOP
       // render the sub tree as actual DOM node
       const domNode = serializeElementToDOM(doc, item, ctx);
       domNode.setAttribute('data-root', nodeId);
